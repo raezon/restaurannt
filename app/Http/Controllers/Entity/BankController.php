@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
@@ -15,7 +15,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['name' => 'ammar', 'state' => 'hi']);
     }
 
     /**

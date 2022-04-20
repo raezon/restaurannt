@@ -1,6 +1,18 @@
 <?php
 
+use App\Http\Controllers\Entity\BankController;
+use App\Http\Controllers\Entity\BillController;
+use App\Http\Controllers\Entity\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Entity\FoodsController;
+use App\Http\Controllers\Entity\InventoryController;
+use App\Http\Controllers\Entity\InvoicesController;
+use App\Http\Controllers\Entity\ReportsController;
+use App\Http\Controllers\Entity\RoomsController;
+use App\Http\Controllers\Entity\SettingsController;
+use App\Http\Controllers\Entity\ShoppingController;
+use App\Http\Controllers\Entity\TypesController;
+use App\Http\Controllers\Entity\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +31,20 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])->name('dashboard');
+    ->name('dashboard');
+
+//entities controller
+Route::resource('bank', BankController::class);
+Route::resource('bill', BillController::class);
+Route::resource('customer', CustomerController::class);
+Route::resource('food', FoodsController::class);
+Route::resource('inventory', InventoryController::class);
+Route::resource('invoices', InvoicesController::class);
+Route::resource('reports', ReportsController::class);
+Route::resource('rooms', RoomsController::class);
+Route::resource('settings', SettingsController::class);
+Route::resource('shopping', ShoppingController::class);
+Route::resource('types', TypesController::class);
+Route::resource('users', UsersController::class);
 
 require __DIR__ . '/auth.php';

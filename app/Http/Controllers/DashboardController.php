@@ -18,8 +18,9 @@ class DashboardController extends Controller
     {
         $elements = $action->getPanels();
         
-        return view('dashboard', [
+        return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+        /* return view('dashboard', [
             'panels' => $elements
-        ]);
+        ]);*/
     }
 }
