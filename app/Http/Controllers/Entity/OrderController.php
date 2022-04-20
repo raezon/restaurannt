@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Models\Bank;
+use App\Models\User;
 
-class BankController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        return response()->json(['name' => 'ammar', 'state' => 'hi']);
+        //
     }
 
     /**

@@ -15,7 +15,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['name' => 'Hi meriem']);
     }
 
     /**
@@ -39,6 +39,10 @@ class BillController extends Controller
         //
     }
 
+    public function findOne($id){
+        $user=['ammar','meriem','mokhtar'];
+        return $user[$id];
+    }
     /**
      * Display the specified resource.
      *
@@ -47,7 +51,12 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        //
+         $username=$this->findOne($id);
+         return $username;
+         // type de reponse detail
+         // databse is detail
+         // view 
+        return response()->json(['name' => 'hi i m user my name '.$username]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Entity\BankController;
+use App\Http\Controllers\Entity\TransactionController;
 use App\Http\Controllers\Entity\BillController;
 use App\Http\Controllers\Entity\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -34,7 +34,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 //entities controller
-Route::resource('bank', BankController::class);
 Route::resource('bill', BillController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('food', FoodsController::class);
@@ -45,6 +44,7 @@ Route::resource('rooms', RoomsController::class);
 Route::resource('settings', SettingsController::class);
 Route::resource('shopping', ShoppingController::class);
 Route::resource('types', TypesController::class);
+Route::resource('transaction', TransactionController::class);
 Route::resource('users', UsersController::class);
 
 require __DIR__ . '/auth.php';
