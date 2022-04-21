@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Entity;
 
-use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
@@ -13,8 +13,10 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+       // return $request;
+       return $request;
         return response()->json(['name' => 'Hi meriem']);
     }
 
@@ -23,9 +25,10 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      
+        return response()->json(['name' => 'Hi meriem']);
     }
 
     /**

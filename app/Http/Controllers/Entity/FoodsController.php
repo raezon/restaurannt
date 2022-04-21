@@ -26,7 +26,11 @@ class FoodsController extends Controller
      */
     public function create(Request $request)
     {
-        //
+        $request=['pitza','2000','yami'];
+        [$a, $b, $c] = $request;
+        //call method to save
+        Food.create($a, $b, $c);
+        
     }
 
     /**
