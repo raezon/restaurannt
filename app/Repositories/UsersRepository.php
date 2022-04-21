@@ -6,7 +6,7 @@ use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
 
-class UsersRepository implements UserRepositoryInterface 
+class UsersRepository implements UserRepositoryInterface
 {
     public function create(array $user)
     {
