@@ -3,11 +3,11 @@
 namespace App\Interfaces;
 
 use Illuminate\Http\Request;
-interface CustomerRepositoryRepositoryInterface 
+interface CustomerRepositoryInterface 
 {
-    public function getAllCustomers();
-    public function getCustomerById($customerId);
-    public function deleteCustomerById($customerId);
-    public function createCustomer(array $customer) ;
-    public function updateCustomer($customerId, array $customer);
+    public function getAll();
+    public function getById($customerId);
+    public function deleteById($customerId);
+    public function create(array $customer) ;
+    public function update($customerId, array $customer);
 }

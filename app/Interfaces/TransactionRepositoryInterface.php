@@ -2,12 +2,12 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface TransactionRepositoryRepositoryInterface 
+interface TransactionRepositoryInterface 
 {
-    public function getAllTransaction();
-    public function getTransactionById($transactionId);
-    public function deleteTransactionById($transactionId);
-    public function createTransaction(array $transaction) ;
-    public function updateTransaction($transactionId, array $transaction);
+    public function getAll();
+    public function getById($transactionId);
+    public function delete($transactionId);
+    public function create(array $transaction) ;
+    public function update($transactionId, array $transaction);
 }
 

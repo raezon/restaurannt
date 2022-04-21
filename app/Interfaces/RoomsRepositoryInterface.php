@@ -2,12 +2,12 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface RoomsRepositoryRepositoryInterface 
+interface RoomsRepositoryInterface 
 {
-    public function getAllRooms();
-    public function getRoomById($roomId);
-    public function deleteRoomById($roomId);
-    public function createRoom(array $room) ;
-    public function updateRoom($roomId, array $room);
+    public function getAll();
+    public function getById($roomId);
+    public function delete($roomId);
+    public function create(array $room) ;
+    public function update($roomId, array $room);
 }
 

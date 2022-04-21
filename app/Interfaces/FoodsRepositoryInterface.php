@@ -2,11 +2,11 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface FoodsRepositoryRepositoryInterface 
+interface FoodsRepositoryInterface 
 {
-    public function getAllFoods();
-    public function getFoodById($foodId);
-    public function deleteFoodById($foodId);
-    public function createFood(array $food) ;
-    public function updateFood($foodId, array $food);
+    public function getAll();
+    public function getById($foodId);
+    public function deleteById($foodId);
+    public function create(array $food) ;
+    public function update($foodId, array $food);
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Entity;
+namespace App\Repositories;
 
-use App\Actions\StorePanelAction;
-use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Interfaces\InventoryRepositoryInterface;
+use Illuminate\Http\Request;
+use App\Models\Article;
 
-class FoodsController extends Controller
+class InventoryRepository implements InventoryRepositoryInterface 
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class FoodsController extends Controller
      */
     public function index()
     {
-        $foods=['pitza','grantita','gratin'];
-        return $foods;
+        //
     }
 
     /**
@@ -24,7 +23,7 @@ class FoodsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
     }

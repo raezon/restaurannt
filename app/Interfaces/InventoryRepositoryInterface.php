@@ -2,11 +2,11 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface InventoryRepositoryRepositoryInterface 
+interface InventoryRepositoryInterface 
 {
-    public function getAllInventory();
-    public function getInventoryId($inventoryId);
-    public function deleteInventoryById($inventoryId);
-    public function createInventory(array $inventory) ;
-    public function updateInventory($inventoryId, array $inventory);
+    public function getAll();
+    public function getId($inventoryId);
+    public function deleteById($inventoryId);
+    public function create(array $inventory) ;
+    public function update($inventoryId, array $inventory);
 }

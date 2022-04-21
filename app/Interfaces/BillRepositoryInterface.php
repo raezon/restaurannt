@@ -5,9 +5,9 @@ namespace App\Interfaces;
 use Illuminate\Http\Request;
 interface BillRepositoryInterface 
 {
-    public function getAllBills();
-    public function getBillById($billId);
-    public function deleteBillById($billId);
-    public function createBill(array $bill) ;
-    public function updateBill($billId, array $bill);
+    public function getAll();
+    public function getById($billId);
+    public function deleteById($billId);
+    public function create(array $bill) ;
+    public function update($billId, array $bill);
 }

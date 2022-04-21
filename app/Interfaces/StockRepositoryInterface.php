@@ -2,12 +2,12 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface StockRepositoryRepositoryInterface 
+interface StockRepositoryInterface 
 {
-    public function getAllStocks();
-    public function getStockById($stockId);
-    public function deleteFoodById($stockId);
-    public function createStock(array $stock) ;
-    public function updateStock($stockId, array $stock);
+    public function getAll();
+    public function getById($stockId);
+    public function delete($stockId);
+    public function create(array $stock) ;
+    public function update($stockId, array $stock);
 }
 

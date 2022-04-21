@@ -4,8 +4,8 @@ namespace App\Interfaces;
 
 use Illuminate\Http\Request;
 
-interface SettingsRepositoryRepositoryInterface
+interface SettingsRepositoryInterface
 {
 
-    public function updateSetting($settingId, array $setting);
+    public function update($settingId, array $setting);
 }
