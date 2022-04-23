@@ -4,34 +4,34 @@ namespace App\Repositories;
 
 use App\Interfaces\FoodsRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Food;
 
 class FoodsRepository implements FoodsRepositoryInterface 
 {
 
-    public function createFood(array $food) 
+    public function create(array $food) 
     {
     
        
 
     }
 
-    public function getAllFoods() 
+    public function getAll() 
     {
-      
+      return Food::all();
     }
 
-    public function getFoodById($foodId) 
+    public function getById($foodId) 
     {
        
     }
 
-    public function updateFood($foodId, array $food) 
+    public function update($foodId, array $food) 
     {
         
     }
 
-    public function deleteFoodById($foodId) 
+    public function deleteById($foodId) 
     {
       
     }

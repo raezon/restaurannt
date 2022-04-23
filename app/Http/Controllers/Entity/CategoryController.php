@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\CustomerRepositoryInterface;
-use App\Repositories\CustomerRepository;
+use App\Interfaces\CategoryRepositoryInterface;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CustomerController extends Controller
+class CategoryController extends Controller
 {
-    public function __construct(CustomerRepositoryInterface $repository) 
+    public function __construct(CategoryRepositoryInterface $repository) 
     {
         $this->Repository = $repository;
     }

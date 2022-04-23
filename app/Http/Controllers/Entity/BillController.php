@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Entity;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\BillRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+
 
 class BillController extends Controller
 {
+    public function __construct(BillRepositoryInterface $Repository)
+    {
+        $this->Repository = $Repository;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +24,8 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-       // return $request;
-       return $request;
-        return response()->json(['name' => 'Hi meriem']);
+        // return $request;
+        return $this->Repository->getAll();
     }
 
     /**
@@ -27,8 +35,9 @@ class BillController extends Controller
      */
     public function create(Request $request)
     {
-      
-        return response()->json(['name' => 'Hi meriem']);
+
+        $dto = $request->all([]);
+        return $this->Repository->create($dto);
     }
 
     /**
@@ -39,13 +48,10 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //call view store
     }
 
-    public function findOne($id){
-        $user=['ammar','meriem','mokhtar'];
-        return $user[$id];
-    }
+
     /**
      * Display the specified resource.
      *
@@ -54,12 +60,7 @@ class BillController extends Controller
      */
     public function show($id)
     {
-         $username=$this->findOne($id);
-         return $username;
-         // type de reponse detail
-         // databse is detail
-         // view 
-        return response()->json(['name' => 'hi i m user my name '.$username]);
+        return $this->Repository->getById($id);
     }
 
     /**
@@ -70,29 +71,25 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //
+        //call view edit
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request): JsonResponse
     {
-        //
+        $id = $request->route('id');
+        $record = $request->only([
+            'client',
+            'details'
+        ]);
+
+        return  $this->Repository->update($id, $record);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->route('id');
+        $this->Repository->delete($id);
+
+        return 'okey';
     }
 }
