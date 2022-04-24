@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopping extends Migration
+class CreatePivotPlatIngrediants extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateShopping extends Migration
      */
     public function up()
     {
-        Schema::create('shopping', function (Blueprint $table) {
+        Schema::create('plat_ingrediant', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->float('price');
+            $table->foreignId('plat_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ingrediant_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateShopping extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping');
+        Schema::dropIfExists('pivot_plat_ingrediants');
     }
 }

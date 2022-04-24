@@ -2,7 +2,7 @@
 namespace App\Interfaces;
 use Illuminate\Http\Request;
 
-interface FoodsRepositoryInterface 
+interface PlatRepositoryInterface 
 {
     public function getAll();
     public function getById($foodId);

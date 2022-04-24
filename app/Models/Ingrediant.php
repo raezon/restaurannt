@@ -6,20 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property string $name
- * @property int $quantity
  * @property string $created_at
  * @property string $updated_at
  */
-class Stock extends Model
+class Ingrediant extends Model
 {
-    /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'stock';
 
+
+    public function plats()
+    {
+        return $this->belongsToMany(Plat::class);
+    }
     /**
      * The "type" of the auto-incrementing ID.
      * 
@@ -30,5 +27,5 @@ class Stock extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'quantity', 'created_at', 'updated_at'];
+    protected $fillable = ['created_at', 'updated_at'];
 }

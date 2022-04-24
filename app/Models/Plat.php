@@ -7,18 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
  * @property string $name
- * @property float $price
+ * @property string $price
+ * @property string $image
  * @property string $created_at
  * @property string $updated_at
  */
-class Shopping extends Model
+class Plat extends Model
 {
+
+    public function ingrediants()
+    {
+        return $this->belongsToMany(Ingrediant::class);
+    }
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'shopping';
+    protected $table = 'plats';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -30,5 +36,5 @@ class Shopping extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'price', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'price', 'image', 'created_at', 'updated_at'];
 }

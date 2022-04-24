@@ -6,9 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ArticleRepositoryInterface;
 use App\Interfaces\BillRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
-use App\Interfaces\FoodsRepositoryInterface;
-use App\Repositories\ArticleRepository;
-use App\Repositories\FoodsRepository;
+use App\Interfaces\PlatRepositoryInterface;
+use App\Repositories\PlatRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -20,7 +19,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(FoodsRepositoryInterface::class,FoodsRepository::class);
+        $this->app->bind(PlatRepositoryInterface::class,PlatRepository::class);
   
     }
 
@@ -41,7 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
     public function registerFoods()
     {
-        return $this->app->bind(FoodsRepositoryInterface::class, FoodsRepository::class);
+        return $this->app->bind(PlatRepositoryInterface::class, PlatRepository::class);
     }
     /**
      * Bootstrap services.

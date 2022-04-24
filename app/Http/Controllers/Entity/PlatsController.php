@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Entity;
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
 use App\Interfaces\FoodsRepositoryInterface;
-use App\Models\Food;
+use App\Interfaces\PlatRepositoryInterface;
+use App\Models\Plat;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Response\PresenterDispatcher;
 
-class FoodsController extends Controller
+class PlatsController extends Controller
 {
 
-    public function __construct(FoodsRepositoryInterface  $repository) 
+    public function __construct(PlatRepositoryInterface  $repository, PresenterDispatcher $presenter)
     {
         $this->Repository = $repository;
+        $this->presenter = $presenter;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +26,11 @@ class FoodsController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->Repository->getAll();
+        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => '5']);
+        // return $this->presenter->handle(['5']);
+        return response()->json([
+            'data' => $this->Repository->getAll()
+        ]);
     }
 
     /**
