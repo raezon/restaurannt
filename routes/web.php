@@ -4,7 +4,7 @@ use App\Http\Controllers\Entity\TransactionController;
 use App\Http\Controllers\Entity\BillController;
 use App\Http\Controllers\Entity\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Entity\FoodsController;
+use App\Http\Controllers\Entity\PlatsController;
 use App\Http\Controllers\Entity\InventoryController;
 use App\Http\Controllers\Entity\InvoicesController;
 use App\Http\Controllers\Entity\ReportsController;
@@ -36,9 +36,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 //entities controller
 Route::resource('bill', BillController::class);
 Route::resource('customer', CustomerController::class);
-Route::resource('food', FoodsController::class);
 Route::resource('inventory', InventoryController::class);
 Route::resource('invoices', InvoicesController::class);
+Route::resource('plats', PlatsController::class);
 Route::resource('reports', ReportsController::class);
 Route::resource('rooms', RoomsController::class);
 Route::resource('settings', SettingsController::class);

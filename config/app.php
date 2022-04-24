@@ -17,6 +17,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Presenter Type
+    |--------------------------------------------------------------------------
+    |
+    | This is value is used by the PresenterDispatcher declared on Responseflder
+    | On http by simply modifying it's value from Api to View you can change
+    | the type of the response if you have any other type of response you
+    | can creat your new type by simply adding a new presenter and adding it's type here
+    |
+    */
+    'presenterType'=>'View',
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
