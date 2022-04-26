@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Entity;
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
 use App\Interfaces\OrderRepositoryInterface;
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -72,7 +72,7 @@ class OrderController extends Controller
         //call view edit
     }
 
-    public function update(Request $request): JsonResponse
+    public function update(Request $request)
     {
         $id = $request->route('id');
         $record = $request->only([

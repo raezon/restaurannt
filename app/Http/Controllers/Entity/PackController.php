@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers\Entity;
 
+use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\BillRepositoryInterface;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Interfaces\FoodsRepositoryInterface;
+use App\Interfaces\PlatRepositoryInterface;
+use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Http\Response\PresenterDispatcher;
+use App\Interfaces\FoodRepositoryInterface;
+use App\Interfaces\PackRepositoryInterface;
 
-//needs here to be polymophic
-class BillController extends Controller
+class PackController extends Controller
 {
-    public function __construct(BillRepositoryInterface $Repository)
+
+    public function __construct(PackRepositoryInterface  $repository, PresenterDispatcher $presenter)
     {
-        $this->Repository = $Repository;
+        $this->Repository = $repository;
+        $this->presenter = $presenter;
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +28,9 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        // return $request;
-        return $this->Repository->getAll();
+        $data=$this->Repository->getAll();
+        return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
+
     }
 
     /**
@@ -36,8 +41,7 @@ class BillController extends Controller
     public function create(Request $request)
     {
 
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.packs.create', 'data' => '']);
     }
 
     /**
@@ -48,7 +52,9 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
+        $dto = $request->all([]);
+        $data= $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
 
@@ -60,7 +66,8 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        return $this->Repository->getById($id);
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
     /**
@@ -71,7 +78,8 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //call view edit
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.packs.update', 'data' => $data]);
     }
 
     public function update(Request $request): JsonResponse
@@ -82,7 +90,9 @@ class BillController extends Controller
             'details'
         ]);
 
-        return  $this->Repository->update($id, $record);
+        $data=  $this->Repository->update($id, $record);
+
+        return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
     public function destroy(Request $request)

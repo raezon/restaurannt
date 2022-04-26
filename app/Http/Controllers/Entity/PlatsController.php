@@ -26,11 +26,9 @@ class PlatsController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => '5']);
-        // return $this->presenter->handle(['5']);
-        return response()->json([
-            'data' => $this->Repository->getAll()
-        ]);
+        $data=$this->Repository->getAll();
+        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
+
     }
 
     /**
@@ -41,8 +39,7 @@ class PlatsController extends Controller
     public function create(Request $request)
     {
 
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.plats.create', 'data' => '']);
     }
 
     /**
@@ -53,7 +50,9 @@ class PlatsController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
+        $dto = $request->all([]);
+        $data= $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
     }
 
 
@@ -65,7 +64,8 @@ class PlatsController extends Controller
      */
     public function show($id)
     {
-        return $this->Repository->getById($id);
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
     }
 
     /**
@@ -76,7 +76,8 @@ class PlatsController extends Controller
      */
     public function edit($id)
     {
-        //call view edit
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.plats.update', 'data' => $data]);
     }
 
     public function update(Request $request): JsonResponse
@@ -87,7 +88,9 @@ class PlatsController extends Controller
             'details'
         ]);
 
-        return  $this->Repository->update($id, $record);
+        $data=  $this->Repository->update($id, $record);
+
+        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
     }
 
     public function destroy(Request $request)

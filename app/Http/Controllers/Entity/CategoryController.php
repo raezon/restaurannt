@@ -72,7 +72,7 @@ class CategoryController extends Controller
         //call view edit
     }
 
-    public function update(Request $request): JsonResponse
+    public function update(Request $request)
     {
         $id = $request->route('id');
         $record = $request->only([
