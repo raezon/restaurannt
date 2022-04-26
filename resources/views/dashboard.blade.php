@@ -12,9 +12,13 @@
                     </figure>
 
                     <div class="flex items-center">
-                        <button class="w-full bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded">
-                            {{$panel['name']}}
-                        </button>
+                            @php $url=$panel['url'] @endphp
+                            <button class="w-full bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded"
+                            onclick="location.href='{{$url}}'">
+                                {{$panel['name']}}
+                            </button>
+                        
+
                     </div>
 
                 </div>

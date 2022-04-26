@@ -10,7 +10,7 @@
         <a href="{{ route('dashboard') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">Back</a>
     </div>
     <div class="flex justify-end mt-10">
-        <a href="{{ route('plats.create') }}" class="px-2 py-1 rounded-md bg-blue-500 text-sky-100 hover:bg-blue-700">+ Create New Plat</a>
+        <a href="{{ route('packs.create') }}" class="px-2 py-1 rounded-md bg-blue-500 text-sky-100 hover:bg-blue-700">+ Create New Pack</a>
     </div>
 
     <div class="flex flex-col mt-10">
@@ -38,15 +38,15 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->price }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->image }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <form action="{{ route('plats.destroy',$element->id) }}" method="POST">
+                                <form action="{{ route('packs.destroy',$element->id) }}" method="POST">
 
-                                    <a class="text-indigo-600 hover:text-indigo-900" href="{{ route('plats.show',$element->id) }}">
+                                    <a class="text-indigo-600 hover:text-indigo-900" href="{{ route('pack.show',$element->id) }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </a>
 
-                                    <a href="{{ route('plats.edit',$element->id) }}" class="text-indigo-600 hover:text-indigo-900 text-gray-600">
+                                    <a href="{{ route('packs.edit',$element->id) }}" class="text-indigo-600 hover:text-indigo-900 text-gray-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
