@@ -4,27 +4,27 @@ namespace App\Repositories;
 
 use App\Interfaces\SettingsRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Settings;
 
 class SettingsRepository implements SettingsRepositoryInterface 
 {
-    public function create(array $setting)
-    {
-    }
 
-    public function getAll()
+  
+    public function getOne()
     {
+        return Settings::find(1);
     }
+  
+    public function create(array $data)
+    {
+  
+        return Settings::create($data);
+    }
+  
+    public function update($id, array $data)
+    {
+        Settings::where('id', $id)->update($data);
+    }
+  
 
-    public function getById($settingId)
-    {
-    }
-
-    public function update($settingId, array $setting)
-    {
-    }
-
-    public function delete($settingId)
-    {
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
+use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\InvoicesRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,9 +13,10 @@ use Illuminate\Http\Response;
 class InvoicesController extends Controller
 {
 
-    public function __construct(InvoicesRepositoryInterface  $repository) 
+    public function __construct(InvoicesRepositoryInterface  $repository,PresenterDispatcher $presenter) 
     {
         $this->Repository = $repository;
+        $this->presenter = $presenter;
     }
     /**
      * Display a listing of the resource.
@@ -23,31 +25,8 @@ class InvoicesController extends Controller
      */
     public function index(Request $request)
     {
-        // return $request;
-        return $this->Repository->getAll();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //call view store
+        $data=$this->Repository->getAll();
+        return $this->presenter->handle(['name' => 'backend.invoices.index', 'data' => $data]);
     }
 
 
@@ -59,7 +38,8 @@ class InvoicesController extends Controller
      */
     public function show($id)
     {
-        return $this->Repository->getById($id);
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.show.index', 'data' => $data]);
     }
 
     /**
@@ -73,7 +53,7 @@ class InvoicesController extends Controller
         //call view edit
     }
 
-    public function update(Request $request): JsonResponse
+    public function update(Request $request)
     {
         $id = $request->route('id');
         $record = $request->only([

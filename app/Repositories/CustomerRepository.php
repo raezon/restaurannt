@@ -4,21 +4,21 @@ namespace App\Repositories;
 
 use App\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Customer;
 
 class CustomerRepository implements CustomerRepositoryInterface 
 {
-    public function getAllCustomers() 
+    public function getAll() 
     {
-      
+      return Customer::all();
     }
 
-    public function getCustomerById($customerId) 
+    public function getById($customerId) 
     {
        
     }
 
-    public function deleteCustomerById($customerId) 
+    public function deleteById($customerId) 
     {
       
      
@@ -26,14 +26,14 @@ class CustomerRepository implements CustomerRepositoryInterface
 
 
 
-    public function createCustomer(array $customer) 
+    public function create(array $customer) 
     {
     
        
 
     }
 
-    public function updateCustomer($customerId, array $customer) 
+    public function update($customerId, array $customer) 
     {
         
     }

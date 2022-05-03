@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\User;
 
 class UsersRepository implements UserRepositoryInterface
 {
@@ -14,6 +14,7 @@ class UsersRepository implements UserRepositoryInterface
 
     public function getAll()
     {
+        return User::all();
     }
 
     public function getById($userId)

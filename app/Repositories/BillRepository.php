@@ -1,42 +1,37 @@
 <?php
+
 namespace App\Repositories;
 
 
 use App\Interfaces\BillRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Billing;
 
-class BillRepository implements BillRepositoryInterface 
+class BillRepository implements BillRepositoryInterface
 {
-    public function getAll() 
+
+    public function getAll()
     {
-      
+        return Billing::all();
     }
 
-    public function getById($billId) 
+    public function getById($id)
     {
-       
+        return Billing::find($id);
     }
 
-    public function deleteById($billId) 
+    public function create(array $data)
     {
-      
-     
+        return Billing::create($data);
     }
 
-
-
-    public function create(array $bill) 
+    public function update($id, array $data)
     {
-    
-       
-
+        Billing::where('id', $id)->update($data);
     }
 
-    public function update($billId, array $bill) 
+    public function deleteById($id)
     {
-        
+        return Billing::destroy($id);
     }
-
-
 }

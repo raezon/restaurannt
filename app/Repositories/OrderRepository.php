@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\OrderRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Order;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -16,12 +16,13 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getAll()
     {
-        // restriction to get only plat with avialable ingredients
+        return Order::all();
     }
 
     public function getById($orderId)
     {
-        // restriction to get only plat with avialable ingredients
+        $order = Order::find($orderId);
+        return $order->food;
     }
 
     public function update($orderId, array $order)

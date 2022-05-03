@@ -2,37 +2,38 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\FoodRepositoryInterface;
 use App\Interfaces\PlatRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Plat;
+use App\Models\Food;
 
-class PlatRepository implements PlatRepositoryInterface
+class FoodRepository implements FoodRepositoryInterface
 {
 
   public function getAll()
   {
-      return Plat::all();
+      return Food::all();
   }
 
   public function getById($id)
   {
-      return Plat::find($id);
+      return Food::find($id);
   }
 
 
   public function create(array $data)
   {
 
-      return Plat::create($data);
+      return Food::create($data);
   }
 
   public function update($id, array $data)
   {
-      Plat::where('id', $id)->update($data);
+    Food::where('id', $id)->update($data);
   }
 
   public function deleteById($id)
   {
-      return Plat::destroy($id);
+      return Food::destroy($id);
   }
 }

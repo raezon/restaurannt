@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
+use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\SettingsRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,9 +12,10 @@ use Illuminate\Http\Response;
 
 class SettingsController extends Controller
 {
-    public function __construct(SettingsRepositoryInterface  $repository) 
+    public function __construct(SettingsRepositoryInterface  $repository,PresenterDispatcher $presenter) 
     {
         $this->Repository = $repository;
+        $this->presenter=$presenter;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +25,8 @@ class SettingsController extends Controller
     public function index(Request $request)
     {
         // return $request;
-        return $this->Repository->getAll();
+        $data= $this->Repository->getOne();
+        return $this->presenter->handle(['name'=>'backend.settings.create','data'=>$data]);
     }
 
     /**

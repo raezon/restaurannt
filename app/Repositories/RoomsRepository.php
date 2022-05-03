@@ -3,29 +3,36 @@
 namespace App\Repositories;
 
 
-use App\Interfaces\ReportsRepositoryInterface;
+use App\Interfaces\RoomsRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Rooms;
 
-class RoomsRepository implements ReportsRepositoryInterface 
+class RoomsRepository implements RoomsRepositoryInterface 
 {
-    public function create(array $room)
-    {
-    }
-
     public function getAll()
     {
+        return Rooms::all();
     }
-
-    public function getById($roomId)
+  
+    public function getById($id)
     {
+        return Rooms::find($id);
     }
-
-    public function update($roomId, array $room)
+  
+  
+    public function create(array $data)
     {
+  
+        return Rooms::create($data);
     }
-
-    public function delete($roomId)
+  
+    public function update($id, array $data)
     {
+        Rooms::where('id', $id)->update($data);
+    }
+  
+    public function delete($id)
+    {
+        return Rooms::destroy($id);
     }
 }

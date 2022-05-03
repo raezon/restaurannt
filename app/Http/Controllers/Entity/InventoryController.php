@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Entity;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
+use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\InventoryRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,9 +12,10 @@ use Illuminate\Http\Response;
 
 class InventoryController extends Controller
 {
-    public function __construct(InventoryRepositoryInterface  $repository) 
+    public function __construct(InventoryRepositoryInterface  $repository,PresenterDispatcher $presenter) 
     {
         $this->Repository = $repository;
+        $this->presenter=$presenter;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +25,8 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         // return $request;
-        return $this->Repository->getAll();
+        $data= $this->Repository->getAll();
+        return $this->presenter->handle(['name' => 'backend.inventory.index', 'data' => $data]);
     }
 
     /**

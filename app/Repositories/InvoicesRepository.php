@@ -5,32 +5,19 @@ namespace App\Repositories;
 use App\Interfaces\InvoicesRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Order;
 
 class InvoicesRepository implements InvoicesRepositoryInterface 
 {
-    public function createInvoice(array $invoice) 
+    public function getAll()
     {
-    
-       
+
+        return Order::all();
     }
 
-    public function getAllInvoices() 
+    public function getById($orderId)
     {
-      
-    }
-
-    public function getInvoiceById($invoiceId) 
-    {
-       
-    }
-
-    public function updateInvoice($invoiceId, array $invoice) 
-    {
-        
-    }
-    
-    public function deleteInvoiceById($invoiceId) 
-    {
-      
+        $order = Order::find($orderId);
+        return $order->food;
     }
 }
