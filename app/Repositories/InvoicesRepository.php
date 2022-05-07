@@ -18,6 +18,6 @@ class InvoicesRepository implements InvoicesRepositoryInterface
     public function getById($orderId)
     {
         $order = Order::find($orderId);
-        return $order->food;
+        return $order;
     }
 }
