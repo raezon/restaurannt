@@ -12,19 +12,22 @@ class FoodRepository implements FoodRepositoryInterface
 
   public function getAll()
   {
-      return Food::all();
+    return Food::all();
   }
 
   public function getById($id)
   {
-      return Food::find($id);
+    return Food::find($id);
   }
-
-
+  public function getByCategory($name)
+  {
+    return Food::where('category', $name)
+      ->get();
+  }
   public function create(array $data)
   {
 
-      return Food::create($data);
+    return Food::create($data);
   }
 
   public function update($id, array $data)
@@ -34,6 +37,6 @@ class FoodRepository implements FoodRepositoryInterface
 
   public function deleteById($id)
   {
-      return Food::destroy($id);
+    return Food::destroy($id);
   }
 }

@@ -19,6 +19,7 @@ use App\Interfaces\SettingsRepositoryInterface;
 use App\Interfaces\TransactionRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\Settings;
+use App\Repositories\BillRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\FoodRepository;
@@ -44,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->registerBilling();
         $this->registerCategory();
         $this->registerCustomer();
         $this->registerFoods();
