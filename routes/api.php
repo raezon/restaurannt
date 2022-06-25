@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Entity\FoodController;
+use App\Http\Controllers\Logic\FoodController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

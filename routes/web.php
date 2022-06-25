@@ -1,22 +1,22 @@
 <?php
 
-use App\Http\Controllers\Entity\TransactionController;
-use App\Http\Controllers\Entity\BillController;
-use App\Http\Controllers\Entity\CustomerController;
+use App\Http\Controllers\Logic\TransactionController;
+use App\Http\Controllers\Logic\BillController;
+use App\Http\Controllers\Logic\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Entity\CategoryController;
-use App\Http\Controllers\Entity\FoodController;
-use App\Http\Controllers\Entity\IngrediantController;
-use App\Http\Controllers\Entity\PlatsController;
-use App\Http\Controllers\Entity\InventoryController;
-use App\Http\Controllers\Entity\InvoicesController;
-use App\Http\Controllers\Entity\OrderController;
-use App\Http\Controllers\Entity\PackController;
-use App\Http\Controllers\Entity\ReportsController;
-use App\Http\Controllers\Entity\RoomsController;
-use App\Http\Controllers\Entity\SettingsController;
-use App\Http\Controllers\Entity\TypesController;
-use App\Http\Controllers\Entity\UsersController;
+use App\Http\Controllers\Logic\CategoryController;
+use App\Http\Controllers\Logic\FoodController;
+use App\Http\Controllers\Logic\IngrediantController;
+use App\Http\Controllers\Logic\PlatsController;
+use App\Http\Controllers\Logic\InventoryController;
+use App\Http\Controllers\Logic\InvoicesController;
+use App\Http\Controllers\Logic\OrderController;
+use App\Http\Controllers\Logic\PackController;
+use App\Http\Controllers\Logic\ReportsController;
+use App\Http\Controllers\Logic\RoomsController;
+use App\Http\Controllers\Logic\SettingsController;
+use App\Http\Controllers\Logic\TypesController;
+use App\Http\Controllers\Logic\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
