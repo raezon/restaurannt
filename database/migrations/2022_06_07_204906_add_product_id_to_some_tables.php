@@ -20,12 +20,12 @@ class AddProductIdToSomeTables extends Migration
         });
         Schema::table('plats', function ($table) {
             $table->bigInteger('product_id')->unsigned()->index()->nullable();
-            $table->foreign('product_id')->references('id')->on('plats')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
          
         });
-        Schema::table('food', function ($table) {
+        Schema::table('foods', function ($table) {
             $table->bigInteger('product_id')->unsigned()->index()->nullable();
-            $table->foreign('product_id')->references('id')->on('food')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
       
     }

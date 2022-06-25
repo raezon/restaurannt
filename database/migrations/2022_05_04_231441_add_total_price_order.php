@@ -13,7 +13,8 @@ class AddTotalPriceOrder extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function ($table) {
+        Schema::create('orders', function ($table) {
+            $table->id();
             $table->integer('platQuantity');
             $table->integer('foodQuantity');
             $table->integer('packQuantity');

@@ -15,7 +15,9 @@ class CreateTransaciton extends Migration
     {
         Schema::create('transaciton', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->nullable()->onDelete('cascade');
+           // $table->integer('order_id')->unsigned()->index()->nullable();
+           // $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

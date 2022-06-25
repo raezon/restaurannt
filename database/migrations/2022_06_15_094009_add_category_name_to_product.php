@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderFood extends Migration
+class AddCategoryNameToProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateOrderFood extends Migration
      */
     public function up()
     {
-        Schema::create('order_food', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->foreignId('food_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('categoryName');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateOrderFood extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_food');
+        Schema::table('product', function (Blueprint $table) {
+            //
+        });
     }
 }

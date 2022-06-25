@@ -13,7 +13,7 @@ class AddPriceFood extends Migration
      */
     public function up()
     {
-        Schema::table('food', function ($table) {
+        Schema::table('foods', function ($table) {
             $table->integer('price');
         });
     }
