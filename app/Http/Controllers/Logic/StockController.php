@@ -1,24 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Logic;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Repositories\FoodsRepositoryInterface;
-use App\Interfaces\Repositories\PlatRepositoryInterface;
-use App\Models\Plat;
-use Illuminate\Http\JsonResponse;
+use App\Interfaces\Repositories\StockRepositoryInterface;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Response\PresenterDispatcher;
-use App\Interfaces\Repositories\FoodRepositoryInterface;
+use Illuminate\Http\Response;
 
-class ProductController extends Controller
+class StockController extends Controller
 {
-
-    public function __construct(FoodRepositoryInterface  $repository, PresenterDispatcher $presenter)
+    public function __construct(StockRepositoryInterface  $repository) 
     {
         $this->Repository = $repository;
-        $this->presenter = $presenter;
     }
     /**
      * Display a listing of the resource.
@@ -27,8 +22,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $this->Repository->getAll();
-       return $data;
+        // return $request;
+        return $this->Repository->getAll();
     }
 
     /**
@@ -39,7 +34,8 @@ class ProductController extends Controller
     public function create(Request $request)
     {
 
-        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => '']);
+        $dto = $request->all([]);
+        return $this->Repository->create($dto);
     }
 
     /**
@@ -50,9 +46,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $dto = $request->all([]);
-        $data = $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        //call view store
     }
 
 
@@ -64,8 +58,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return $this->Repository->getById($id);
     }
 
     /**
@@ -76,8 +69,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.foods.update', 'data' => $data]);
+        //call view edit
     }
 
     public function update(Request $request): JsonResponse
@@ -88,9 +80,7 @@ class ProductController extends Controller
             'details'
         ]);
 
-        $data =  $this->Repository->update($id, $record);
-
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return  $this->Repository->update($id, $record);
     }
 
     public function destroy(Request $request)

@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-use App\Interfaces\BillRepositoryInterface;
+use App\Interfaces\Repositories\BillRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Billing;
 

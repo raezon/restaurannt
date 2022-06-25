@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Logic;
 
-use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Repositories\FoodsRepositoryInterface;
-use App\Interfaces\Repositories\PlatRepositoryInterface;
-use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
-use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
 
-    public function __construct(FoodRepositoryInterface  $repository, PresenterDispatcher $presenter)
+    public function __construct(ProductRepositoryInterface  $repository, PresenterDispatcher $presenter)
     {
         $this->Repository = $repository;
         $this->presenter = $presenter;
@@ -28,7 +24,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data = $this->Repository->getAll();
-       return $data;
+        return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
     }
 
     /**
@@ -39,7 +35,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {
 
-        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => '']);
+        return $this->presenter->handle(['name' => 'backend.product.create', 'data' => '']);
     }
 
     /**
@@ -52,7 +48,7 @@ class ProductController extends Controller
     {
         $dto = $request->all([]);
         $data = $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
     }
 
 
@@ -65,7 +61,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
     }
 
     /**
@@ -77,7 +73,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.foods.update', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.product.update', 'data' => $data]);
     }
 
     public function update(Request $request): JsonResponse
@@ -90,7 +86,7 @@ class ProductController extends Controller
 
         $data =  $this->Repository->update($id, $record);
 
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
     }
 
     public function destroy(Request $request)

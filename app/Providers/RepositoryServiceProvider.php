@@ -3,21 +3,22 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\BillRepositoryInterface;
-use App\Interfaces\CategoryRepositoryInterface;
-use App\Interfaces\CustomerRepositoryInterface;
-use App\Interfaces\FoodRepositoryInterface;
-use App\Interfaces\IngrediantRepositoryInterface;
-use App\Interfaces\InventoryRepositoryInterface;
-use App\Interfaces\InvoicesRepositoryInterface;
-use App\Interfaces\OrderRepositoryInterface;
-use App\Interfaces\PackRepositoryInterface;
-use App\Interfaces\PlatRepositoryInterface;
-use App\Interfaces\ReportsRepositoryInterface;
-use App\Interfaces\RoomsRepositoryInterface;
-use App\Interfaces\SettingsRepositoryInterface;
-use App\Interfaces\TransactionRepositoryInterface;
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\Repositories\BillRepositoryInterface;
+use App\Interfaces\Repositories\CategoryRepositoryInterface;
+use App\Interfaces\Repositories\CustomerRepositoryInterface;
+use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\IngrediantRepositoryInterface;
+use App\Interfaces\Repositories\InventoryRepositoryInterface;
+use App\Interfaces\Repositories\InvoicesRepositoryInterface;
+use App\Interfaces\Repositories\OrderRepositoryInterface;
+use App\Interfaces\Repositories\PackRepositoryInterface;
+use App\Interfaces\Repositories\PlatRepositoryInterface;
+use App\Interfaces\Repositories\ProductRepositoryInterface;
+use App\Interfaces\Repositories\ReportsRepositoryInterface;
+use App\Interfaces\Repositories\RoomsRepositoryInterface;
+use App\Interfaces\Repositories\SettingsRepositoryInterface;
+use App\Interfaces\Repositories\TransactionRepositoryInterface;
+use App\Interfaces\Repositories\UserRepositoryInterface;
 use App\Models\Settings;
 use App\Repositories\BillRepository;
 use App\Repositories\CategoryRepository;
@@ -29,6 +30,7 @@ use App\Repositories\InvoicesRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PackRepository;
 use App\Repositories\PlatRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\ReportsRepository;
 use App\Repositories\RoomsRepository;
 use App\Repositories\SettingsRepository;
@@ -60,6 +62,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerTransaction();
         $this->registerUser();
         $this->registerSettings();
+        $this->registerProduct();
     }
 
     public function registerBilling()
@@ -123,6 +126,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UsersRepository::class);
     }
 
+    public function registerProduct()
+    {
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+    }
     public function registerSettings()
     {
         $this->app->bind(SettingsRepositoryInterface::class, SettingsRepository::class);

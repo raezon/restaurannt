@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\OrderRepositoryInterface;
+use App\Interfaces\Repositories\OrderRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Order;
 

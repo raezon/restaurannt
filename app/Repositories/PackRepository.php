@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\PackRepositoryInterface;
+use App\Interfaces\Repositories\PackRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Pack;
 

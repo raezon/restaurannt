@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\InvoicesRepositoryInterface;
+use App\Interfaces\Repositories\InvoicesRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Order;

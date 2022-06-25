@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\TransactionRepositoryInterface;
+use App\Interfaces\Repositories\TransactionRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Transaction;

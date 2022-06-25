@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\IngrediantRepositoryInterface;
+use App\Interfaces\Repositories\IngrediantRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Ingrediant;
 

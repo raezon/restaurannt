@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ReportsRepositoryInterface;
+use App\Interfaces\Repositories\ReportsRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
 

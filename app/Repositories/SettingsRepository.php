@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\SettingsRepositoryInterface;
+use App\Interfaces\Repositories\SettingsRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Settings;
 

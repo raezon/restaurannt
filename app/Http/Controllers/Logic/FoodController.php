@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Logic;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\Repositories\FoodRepositoryInterface;
 
-class ProductController extends Controller
+class FoodController extends Controller
 {
 
     public function __construct(FoodRepositoryInterface  $repository, PresenterDispatcher $presenter)
@@ -28,7 +28,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data = $this->Repository->getAll();
-       return $data;
+        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
     /**
@@ -68,6 +68,19 @@ class ProductController extends Controller
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCategory($name)
+    {
+        $data = $this->Repository->getByCategory($name);
+        return response()->json([
+            'data' => $data
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

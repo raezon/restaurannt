@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-use App\Interfaces\RoomsRepositoryInterface;
+use App\Interfaces\Repositories\RoomsRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Rooms;
 

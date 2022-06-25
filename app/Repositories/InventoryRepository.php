@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\InventoryRepositoryInterface;
+use App\Interfaces\Repositories\InventoryRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\Interfaces\StockRepositoryInterface;
+use App\Interfaces\Repositories\StockRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Article;
 

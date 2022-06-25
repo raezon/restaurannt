@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\FoodRepositoryInterface;
-use App\Interfaces\PlatRepositoryInterface;
+use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\PlatRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Food;
 
