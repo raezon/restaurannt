@@ -46,7 +46,22 @@
             transform: translate3d(4px, 0, 0);
         }
     }
+
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .custom-number-input input:focus {
+        outline: none !important;
+    }
+
+    .custom-number-input button:focus {
+        outline: none !important;
+    }
 </style>
+
 <div id="1">
     <div>
         <div class="container">
@@ -71,8 +86,7 @@
     <div>
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-2 gap-4 " style="background-color: #e9e9e9;margin-left:0;padding: 6px;">
-                <div class="grid grid-cols-1 gap-4 ">
-                    <div id="image_0"></div>
+                <div class="grid grid-cols-3 gap-4 ">
                     @include('backend.bill.parts.category',['categories'=>$data['category']])
                     <div id="image_2">
                         @include('backend.bill.parts.product')
@@ -80,18 +94,9 @@
 
                 </div>
 
-                <div class="col-md-6 col-lg-4 text-center" style="background-color: #e9e9e9;margin-left: 0;margin-right: 0;"><label class="text-center border rounded" style="background-color: #f76c6c;"> List Types المختارة</label>
-
-                    <div id="image_3">
-
-                    </div>
-
-
+                <div class="text-center" style="background-color: #e9e9e9;margin-left: 0;margin-right: 0;"><label class="text-center border rounded" style="background-color: #f76c6c;"> List Types المختارة</label>
+                    @include('backend.bill.parts.product-purchased')
                 </div>
-                <div class="col">
-                    <div id="image_5"></div>
-                </div>
-
             </div>
         </div>
     </div>
