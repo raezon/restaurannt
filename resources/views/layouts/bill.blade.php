@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" ng-app="app" ng-controller="productController"  ng-init="category=''">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" ng-app="app" ng-controller="productController" ng-init="category=''">
 
 <head>
     <meta charset="utf-8">

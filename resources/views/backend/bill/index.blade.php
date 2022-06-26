@@ -85,18 +85,22 @@
     </div>
     <div>
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-2 gap-4 " style="background-color: #e9e9e9;margin-left:0;padding: 6px;">
-                <div class="grid grid-cols-3 gap-4 ">
-                    @include('backend.bill.parts.category',['categories'=>$data['category']])
-                    <div id="image_2">
-                        @include('backend.bill.parts.product')
+            <div class="grid grid-cols-3 " style="background-color: #e9e9e9;margin-left:0;padding: 6px;">
+                <!---First row category with product-->
+                <div class="col-span-2">
+                    <div class="grid grid-cols-1 gap-4 ">
+                        @include('backend.bill.parts.category',['categories'=>$data['category']])
+                        <div id="image_2">
+                            @include('backend.bill.parts.product')
+                        </div>
                     </div>
-
                 </div>
-
-                <div class="text-center" style="background-color: #e9e9e9;margin-left: 0;margin-right: 0;"><label class="text-center border rounded" style="background-color: #f76c6c;"> List Types المختارة</label>
+                <!---end row category with product-->
+                <!---second  row display bill-->
+                <div class="text-center" style="background-color: #e9e9e9;margin-left: 0;margin-right: 0;"><label class="text-center text-xl border rounded" style="background-color: #f76c6c;"> List Types المختارة</label>
                     @include('backend.bill.parts.product-purchased')
                 </div>
+                <!---end second  row display bill-->
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <div class="custom-number-input h-10 w-32">
-  <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Counter Input
+  <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">{{$name}}
   </label>
   <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
     <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">

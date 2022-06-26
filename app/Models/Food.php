@@ -21,6 +21,12 @@ class Food extends Model
     protected $keyType = 'integer';
 
     /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'foods';
+    /**
      * @var array
      */
     protected $fillable = ['name', 'picture', 'created_at', 'updated_at'];

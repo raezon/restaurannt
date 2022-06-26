@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Logic;
 
 use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Repositories\FoodsRepositoryInterface;
-use App\Interfaces\Repositories\PlatRepositoryInterface;
 use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

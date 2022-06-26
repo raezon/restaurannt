@@ -11,19 +11,24 @@ class ProductRepository implements ProductRepositoryInterface
 
   public function getAll()
   {
-      return Product::all();
+    return Product::all();
   }
 
   public function getById($id)
   {
-      return Product::find($id);
+    return Product::find($id);
   }
-
+  
+  public function getByCategory($name)
+  {
+    return Product::where('category', $name)
+      ->get();
+  }
 
   public function create(array $data)
   {
 
-      return Product::create($data);
+    return Product::create($data);
   }
 
   public function update($id, array $data)
@@ -33,6 +38,6 @@ class ProductRepository implements ProductRepositoryInterface
 
   public function deleteById($id)
   {
-      return Product::destroy($id);
+    return Product::destroy($id);
   }
 }

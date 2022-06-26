@@ -7,16 +7,18 @@
 
 
     app.controller('productController', function ($scope, $http) {
+
         //retrieve products listing from API
-        $scope.purchasedProducts=[];
+        $scope.purchasedProducts = [];
         $scope.getProducts = function getProducts(name) {
 
             $http.get("http://127.0.0.1:8000/api/product/category/" + name)
                 .then(function (response) {
                     $scope.products = response.data.data;
                 });
+
         }
-        $scope.display=function disp(product){
+        $scope.display = function disp(product) {
             $scope.purchasedProducts.push(product)
             console.log($scope.purchasedProducts)
         }

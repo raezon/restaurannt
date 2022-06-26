@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Logic\FoodController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('product', ProductController::class);
-Route::get('product/category/{name}', [FoodController::class, 'showCategory']);
+Route::get('product/category/{name}', [ProductController::class, 'showCategory']);
