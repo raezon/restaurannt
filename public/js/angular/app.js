@@ -10,6 +10,7 @@
 
         //retrieve products listing from API
         $scope.purchasedProducts = [];
+        $scope.ids = [];
         $scope.getProducts = function getProducts(name) {
 
             $http.get("http://127.0.0.1:8000/api/product/category/" + name)
@@ -18,9 +19,22 @@
                 });
 
         }
+        $scope.printBill = function getProducts() {
+          /*  var ids = [];
+            var elements = document.getElementsByClassName("product-purchase");
+            for (var i = 0, len = elements.length; i < len; i++) {
+
+                ids.push(elements[i].id)
+            }
+
+            document.getElementById('ids-billing').value =ids;*/
+           
+
+        }
         $scope.display = function disp(product) {
             $scope.purchasedProducts.push(product)
-            console.log($scope.purchasedProducts)
+            $scope.ids.push(product.id)
+            document.getElementById('ids-billing').value =$scope.ids;            
         }
         //save new record / update existing record
         $scope.save = function (modalstate, id) {

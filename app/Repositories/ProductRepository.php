@@ -13,6 +13,11 @@ class ProductRepository implements ProductRepositoryInterface
   {
     return Product::all();
   }
+  public function getMany($ids)
+  {
+    return Product::find($ids);
+  }
+
 
   public function getById($id)
   {

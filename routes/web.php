@@ -36,6 +36,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
+Route::post('/bill/view', [BillController::class, 'show'])
+    ->name('billView');
 
 //entities controller
 Route::resource('bill', BillController::class);
