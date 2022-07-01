@@ -6,13 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property integer $product_id
  * @property string $name
  * @property string $picture
  * @property string $created_at
  * @property string $updated_at
+ * @property int $price
+ * @property string $photo
+ * @property Product $product
+ * @property PackPlatFood[] $packPlatFoods
  */
 class Food extends Model
 {
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'foods';
+
     /**
      * The "type" of the auto-incrementing ID.
      * 
@@ -21,13 +33,23 @@ class Food extends Model
     protected $keyType = 'integer';
 
     /**
-     * The table associated with the model.
-     * 
-     * @var string
-     */
-    protected $table = 'foods';
-    /**
      * @var array
      */
-    protected $fillable = ['name', 'picture', 'created_at', 'updated_at'];
+    protected $fillable = ['product_id', 'name', 'picture', 'created_at', 'updated_at', 'price', 'photo'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packPlatFoods()
+    {
+        return $this->hasMany('App\PackPlatFood');
+    }
 }

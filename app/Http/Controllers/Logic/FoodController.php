@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Logic;
 
-use App\Actions\StorePanelAction;
+use App\Actions\UploadAction;
 use App\Http\Controllers\Controller;
 use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
@@ -46,9 +46,13 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadAction $action)
     {
         $dto = $request->all([]);
+        $pictureName = $action->storeFile($request);
+        $dto['picture'] = $pictureName;
+        echo  $pictureName;
+        die();
         $data = $this->Repository->create($dto);
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }

@@ -38,6 +38,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 Route::post('/bill/view', [BillController::class, 'show'])
     ->name('billView');
+Route::post('/foods/store', [FoodController::class, 'store'])
+    ->name('FoodStore');
 
 //entities controller
 Route::resource('bill', BillController::class);

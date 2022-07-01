@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f689b2fb1b971f575190502c215f4fa8",
+    "content-hash": "0b64f7278ef97d475ae2910b249975c1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -956,6 +956,66 @@
                 }
             ],
             "time": "2022-03-20T21:55:58+00:00"
+        },
+        {
+            "name": "imritesh/livecrud",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/riteshsingh1/livewire-crud.git",
+                "reference": "c6d455425189b38b01af5993eb3eee3231278548"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/riteshsingh1/livewire-crud/zipball/c6d455425189b38b01af5993eb3eee3231278548",
+                "reference": "c6d455425189b38b01af5993eb3eee3231278548",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~7|~8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~5|~6",
+                "phpunit/phpunit": "~9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Imritesh\\LiveCrud\\LiveCrudServiceProvider"
+                    ],
+                    "aliases": {
+                        "LiveCrud": "Imritesh\\LiveCrud\\Facades\\LiveCrud"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Imritesh\\LiveCrud\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ritesh Singh",
+                    "email": "hello@imritesh.com",
+                    "homepage": "https://imritesh.com"
+                }
+            ],
+            "description": "Generate Basic Crud Operations With Livewire and Tailwind Css For Laravel",
+            "homepage": "https://github.com/riteshsingh1/livewire-crud",
+            "keywords": [
+                "LiveCrud",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/riteshsingh1/livewire-crud/issues",
+                "source": "https://github.com/riteshsingh1/livewire-crud/tree/v2.3.1"
+            },
+            "time": "2021-08-05T15:43:01+00:00"
         },
         {
             "name": "laravel/framework",
