@@ -33,7 +33,6 @@
                         <tr>
 
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->name }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->quantity }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <form action="{{ route('categories.destroy',$element->id) }}" method="POST">
 

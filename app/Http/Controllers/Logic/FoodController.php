@@ -51,8 +51,6 @@ class FoodController extends Controller
         $dto = $request->all([]);
         $pictureName = $action->storeFile($request);
         $dto['picture'] = $pictureName;
-        echo  $pictureName;
-        die();
         $data = $this->Repository->create($dto);
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }

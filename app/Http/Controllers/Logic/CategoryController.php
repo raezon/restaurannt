@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function __construct(CategoryRepositoryInterface   $repository, PresenterDispatcher $presenter)
     {
         $this->Repository = $repository;
-        $this->presenter=$presenter;
+        $this->presenter = $presenter;
     }
     /**
      * Display a listing of the resource.
@@ -23,9 +23,10 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         // return $request;
-        $data= $this->Repository->getAll();
+        $data = $this->Repository->getAll();
         return $this->presenter->handle(['name' => 'backend.categories.index', 'data' => $data]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,9 +36,11 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
 
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.categories.create', 'data' => '']);
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,7 +50,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
+        $dto = $request->all([]);
+        $this->Repository->create($dto);
+        return redirect('/categories');
     }
 
 
@@ -59,7 +64,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return $this->Repository->getById($id);
+        $data= $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.categories.show', 'data' => $data]);
     }
 
     /**
@@ -70,7 +76,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //call view edit
+        $data = $this->Repository->getById($id);
+        return $this->presenter->handle(['name' => 'backend.categories.edit', 'data' => $data]);
     }
 
     public function update(Request $request)
@@ -84,11 +91,9 @@ class CategoryController extends Controller
         return  $this->Repository->update($id, $record);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        $id = $request->route('id');
-        $this->Repository->delete($id);
-
-        return 'okey';
+        $this->Repository->deleteById($id);
+        return redirect('/categories');
     }
 }
