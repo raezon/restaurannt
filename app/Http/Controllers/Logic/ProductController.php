@@ -48,7 +48,8 @@ class ProductController extends Controller
     {
         $dto = $request->all([]);
         $data = $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
+        return $data['id'];
+       // return $this->presenter->handle(['name' => 'backend.product.index', 'data' => $data]);
     }
 
 

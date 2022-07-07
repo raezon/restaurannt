@@ -36,5 +36,5 @@ class Plat extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'price', 'image', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'price', 'photo', 'created_at', 'updated_at'];
 }

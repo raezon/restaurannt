@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Logic;
 
-use App\Actions\StorePanelAction;
+use App\Actions\UploadAction;
+use App\Actions\ProductFactoryAction;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Repositories\FoodsRepositoryInterface;
+use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
 use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
@@ -14,9 +15,10 @@ use App\Http\Response\PresenterDispatcher;
 class PlatsController extends Controller
 {
 
-    public function __construct(PlatRepositoryInterface  $repository, PresenterDispatcher $presenter)
+    public function __construct(PlatRepositoryInterface  $platRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
     {
-        $this->Repository = $repository;
+        $this->platRepository = $platRepository;
+        $this->productRepository = $productRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -26,9 +28,8 @@ class PlatsController extends Controller
      */
     public function index(Request $request)
     {
-        $data=$this->Repository->getAll();
+        $data = $this->platRepository->getAll();
         return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
-
     }
 
     /**
@@ -48,11 +49,21 @@ class PlatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,ProductFactoryAction $productFactoryAction ,UploadAction $action)
     {
         $dto = $request->all([]);
-        $data= $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
+        //penser a améliorer
+        //upload image
+        $pictureName = $action->storeFile($request);
+        //create product and need to be a factory
+        $factory=new productFactoryAction($this->productRepository);
+        $productId = $factory->createProduct('plat',$dto);
+        //think on using a function
+        $dto['product_id'] = $productId;
+        $dto['picture'] = $pictureName;
+        //create plat
+        $data = $this->platRepository->create($dto);
+        return redirect('/plats');
     }
 
 
@@ -64,7 +75,7 @@ class PlatsController extends Controller
      */
     public function show($id)
     {
-        $data= $this->Repository->getById($id);
+        $data = $this->Repository->getById($id);
         return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
     }
 
@@ -76,7 +87,7 @@ class PlatsController extends Controller
      */
     public function edit($id)
     {
-        $data= $this->Repository->getById($id);
+        $data = $this->Repository->getById($id);
         return $this->presenter->handle(['name' => 'backend.plats.update', 'data' => $data]);
     }
 
@@ -88,7 +99,7 @@ class PlatsController extends Controller
             'details'
         ]);
 
-        $data=  $this->Repository->update($id, $record);
+        $data =  $this->Repository->update($id, $record);
 
         return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
     }
