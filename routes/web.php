@@ -43,6 +43,10 @@ Route::post('/foods/store', [FoodController::class, 'store'])
     ->name('FoodStore');
 Route::post('/plats/store', [PlatsController::class, 'store'])
     ->name('PlatStore');
+Route::post('/packs/store', [PackController::class, 'store'])
+    ->name('PackStore');
+Route::get('/packs/show', [PackController::class, 'index'])
+    ->name('Packs');
 Route::post('/categories/store', [CategoryController::class, 'store'])
     ->name('CategoriesStore');
 

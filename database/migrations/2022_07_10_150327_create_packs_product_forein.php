@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProductIdToSomeTables extends Migration
+class CreatePacksProductForein extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class AddProductIdToSomeTables extends Migration
      */
     public function up()
     {
-        Schema::table('plats', function ($table) {
+
+        Schema::table('packs_product', function ($table) {
             $table->bigInteger('product_id')->unsigned()->index()->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-         
+            $table->bigInteger('pack_id')->unsigned()->index()->nullable();
+            $table->foreign('pack_id')->references('id')->on('packs')->onDelete('cascade');
         });
-        Schema::table('foods', function ($table) {
-            $table->bigInteger('product_id')->unsigned()->index()->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-      
     }
 
     /**
@@ -32,8 +29,6 @@ class AddProductIdToSomeTables extends Migration
      */
     public function down()
     {
-        Schema::table('some_tables', function (Blueprint $table) {
-            //
-        });
+
     }
 }

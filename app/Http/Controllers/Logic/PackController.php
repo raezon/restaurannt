@@ -12,13 +12,18 @@ use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\Repositories\FoodRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
+use App\Interfaces\Repositories\ProductPackRepositoryInterface;
+use App\Repositories\FoodRepository;
 
 class PackController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $repository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository,ProductPackRepositoryInterface $productPackRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
     {
-        $this->Repository = $repository;
+        $this->packRepository = $packRepository;
+        $this->platRepository = $platRepository;
+        $this->foodRepository = $foodRepository;
+        $this->productPackRepository=$productPackRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -28,9 +33,8 @@ class PackController extends Controller
      */
     public function index(Request $request)
     {
-        $data=$this->Repository->getAll();
+        $data = $this->packRepository->getAll();
         return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
-
     }
 
     /**
@@ -40,8 +44,11 @@ class PackController extends Controller
      */
     public function create(Request $request)
     {
+        $plats = $this->platRepository->getAll()->toArray();
+        $foods = $this->foodRepository->getAll()->toArray();
 
-        return $this->presenter->handle(['name' => 'backend.packs.create', 'data' => '']);
+        $result = array_merge((array)$plats, (array)$foods);
+        return $this->presenter->handle(['name' => 'backend.packs.create', 'data' => $result]);
     }
 
     /**
@@ -53,8 +60,13 @@ class PackController extends Controller
     public function store(Request $request)
     {
         $dto = $request->all([]);
-        $data= $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
+        $pack = $this->packRepository->create($dto);
+        foreach ($dto['pack'] as $product) {
+            $this->productPackRepository->create(['product_id'=>$product,'pack_id'=>$pack['id']]);
+        }
+
+        
+        return redirect('/packs ');
     }
 
 
@@ -66,7 +78,7 @@ class PackController extends Controller
      */
     public function show($id)
     {
-        $data= $this->Repository->getById($id);
+        $data = $this->packRepository->getById($id);
         return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
@@ -78,7 +90,7 @@ class PackController extends Controller
      */
     public function edit($id)
     {
-        $data= $this->Repository->getById($id);
+        $data = $this->packRepository->getById($id);
         return $this->presenter->handle(['name' => 'backend.packs.update', 'data' => $data]);
     }
 
@@ -90,7 +102,7 @@ class PackController extends Controller
             'details'
         ]);
 
-        $data=  $this->Repository->update($id, $record);
+        $data =  $this->packRepository->update($id, $record);
 
         return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }

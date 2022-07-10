@@ -19,6 +19,7 @@ use App\Interfaces\Repositories\RoomsRepositoryInterface;
 use App\Interfaces\Repositories\SettingsRepositoryInterface;
 use App\Interfaces\Repositories\TransactionRepositoryInterface;
 use App\Interfaces\Repositories\UserRepositoryInterface;
+use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use App\Models\Settings;
 use App\Repositories\BillRepository;
 use App\Repositories\CategoryRepository;
@@ -36,6 +37,7 @@ use App\Repositories\RoomsRepository;
 use App\Repositories\SettingsRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UsersRepository;
+use App\Repositories\PackProductRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -63,6 +65,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerUser();
         $this->registerSettings();
         $this->registerProduct();
+        $this->registerPackProduct();
     }
 
     public function registerBilling()
@@ -133,6 +136,10 @@ class RepositoryServiceProvider extends ServiceProvider
     public function registerSettings()
     {
         $this->app->bind(SettingsRepositoryInterface::class, SettingsRepository::class);
+    }
+    public function registerPackProduct()
+    {
+        $this->app->bind(ProductPackRepositoryInterface::class, PackProductRepository::class);
     }
     /**
      * Bootstrap services.

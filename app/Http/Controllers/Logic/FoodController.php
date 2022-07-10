@@ -52,7 +52,7 @@ class FoodController extends Controller
         $pictureName = $action->storeFile($request);
         $dto['picture'] = $pictureName;
         $data = $this->Repository->create($dto);
-        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
+        return redirect('/foods');
     }
 
 
@@ -106,11 +106,9 @@ class FoodController extends Controller
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        $id = $request->route('id');
-        $this->Repository->delete($id);
-
-        return 'okey';
+        $this->Repository->deleteById($id);
+        return redirect('/foods');
     }
 }
