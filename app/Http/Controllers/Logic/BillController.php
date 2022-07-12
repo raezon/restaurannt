@@ -5,20 +5,25 @@ namespace App\Http\Controllers\Logic;
 use App\Http\Controllers\Controller;
 use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\Repositories\SettingsRepositoryInterface;
-use App\Interfaces\Repositories\BillRepositoryInterface;
+use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\PlatRepositoryInterface;
+use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use App\Interfaces\Repositories\CategoryRepositoryInterface;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use App\Actions\Factory\ProductFactoryAction;
 
 //needs here to be polymophic
 class BillController extends Controller
 {
-    public function __construct(BillRepositoryInterface $foodRepository, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
+    public function __construct(FoodRepositoryInterface $foodRepository,PlatRepositoryInterface $platRepository,ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
     {
         $this->foodRepository = $foodRepository;
+        $this->platRepository = $platRepository;
+        $this->packProduct = $packProduct;
         $this->categoryRepository = $categoryRepository;
         $this->settingsRepository = $settingsRepository;
         $this->productRepository = $productRepository;
@@ -32,6 +37,8 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
+        $factory=new productFactoryAction($this->productRepository,$this->foodRepository, $this->platRepository,$this->packProduct);
+        $factory->getProducts();
         // return $request;
         $data['category'] = $this->categoryRepository->getAll();
         $data['food'] = $this->foodRepository->getAll();

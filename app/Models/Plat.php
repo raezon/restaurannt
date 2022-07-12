@@ -27,6 +27,13 @@ class Plat extends Model
     protected $table = 'plats';
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
+    /**
      * The "type" of the auto-incrementing ID.
      * 
      * @var string

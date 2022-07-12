@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Logic;
 
 use App\Actions\UploadAction;
-use App\Actions\ProductFactoryAction;
+use App\Actions\Factory\ProductFactoryAction;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
+use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
+use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,10 +18,13 @@ use App\Http\Response\PresenterDispatcher;
 class PlatsController extends Controller
 {
 
-    public function __construct(PlatRepositoryInterface  $platRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository,ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository,FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
     {
+        $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
-        $this->productRepository = $productRepository;
+        $this->foodRepository = $foodRepository;
+        $this->productPackRepository=$productPackRepository;
+        $this->productRepository=$productRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -56,11 +62,12 @@ class PlatsController extends Controller
         //upload image
         $pictureName = $action->storeFile($request);
         //create product and need to be a factory
-        $factory=new productFactoryAction($this->productRepository);
+        $factory=new productFactoryAction($this->productRepository,$this->foodRepository, $this->platRepository,$this->productPackRepository);
+        $dto['picture'] = $pictureName;
+        
         $productId = $factory->createProduct('plat',$dto);
         //think on using a function
         $dto['product_id'] = $productId;
-        $dto['picture'] = $pictureName;
         //create plat
         $data = $this->platRepository->create($dto);
         return redirect('/plats');

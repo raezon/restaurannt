@@ -64,8 +64,6 @@ class PackController extends Controller
         foreach ($dto['pack'] as $product) {
             $this->productPackRepository->create(['product_id'=>$product,'pack_id'=>$pack['id']]);
         }
-
-        
         return redirect('/packs ');
     }
 
@@ -107,11 +105,10 @@ class PackController extends Controller
         return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request,$id)
     {
-        $id = $request->route('id');
-        $this->Repository->delete($id);
 
-        return 'okey';
+        $this->packRepository->deleteById($id);
+        return redirect('/packs ');
     }
 }

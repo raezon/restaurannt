@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property string $name
  * @property string $description
- * @property string $photo
  * @property string $type
+ * @property int $picture
  * @property string $sku
+ * @property float $price
  * @property string $created_at
  * @property string $updated_at
- * @property Pack[] $packs
+ * @property string $category
+ * @property Food[] $foods
+ * @property Order[] $orders
+ * @property PacksProduct[] $packsProducts
+ * @property Plat[] $plats
  */
 class Product extends Model
 {
@@ -27,13 +32,37 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name','category','price', 'description', 'photo', 'type', 'sku', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'description', 'type', 'picture', 'sku', 'price', 'created_at', 'updated_at', 'category'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function packs()
+    public function foods()
     {
-        return $this->hasMany('App\Pack');
+        return $this->hasMany('App\Food');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packsProducts()
+    {
+        return $this->hasMany('App\PacksProduct');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function plats()
+    {
+        return $this->hasMany('App\Plat');
     }
 }

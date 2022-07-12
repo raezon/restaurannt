@@ -17,7 +17,7 @@ class CreateProduct extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('photo');
+            $table->string('picture');
             $table->string('type');
             $table->string('sku');
             $table->timestamps();

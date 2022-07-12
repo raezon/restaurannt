@@ -3,19 +3,27 @@
 namespace App\Http\Controllers\Logic;
 
 use App\Actions\UploadAction;
+use App\Actions\Factory\ProductFactoryAction;
 use App\Http\Controllers\Controller;
-use App\Models\Plat;
+use App\Interfaces\Repositories\ProductRepositoryInterface;
+use App\Interfaces\Repositories\PackRepositoryInterface;
+use App\Interfaces\Repositories\PlatRepositoryInterface;
+use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
-use App\Interfaces\Repositories\FoodRepositoryInterface;
 
 class FoodController extends Controller
 {
 
-    public function __construct(FoodRepositoryInterface  $repository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
     {
-        $this->Repository = $repository;
+        $this->packRepository = $packRepository;
+        $this->platRepository = $platRepository;
+        $this->foodRepository = $foodRepository;
+        $this->productPackRepository = $productPackRepository;
+        $this->productRepository = $productRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -25,7 +33,7 @@ class FoodController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $this->Repository->getAll();
+        $data = $this->foodRepository->getAll();
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
@@ -40,21 +48,23 @@ class FoodController extends Controller
         return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => '']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, UploadAction $action)
+
+    public function store(Request $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
     {
         $dto = $request->all([]);
+        //penser a améliorer
+        //upload image
         $pictureName = $action->storeFile($request);
+        //create product and need to be a factory
+        $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $dto['picture'] = $pictureName;
-        $data = $this->Repository->create($dto);
+        $productId = $factory->createProduct('plat', $dto);
+        //think on using a function
+        $dto['product_id'] = $productId;
+        //create plat
+        $data = $this->foodRepository->create($dto);
         return redirect('/foods');
     }
-
 
     /**
      * Display the specified resource.
