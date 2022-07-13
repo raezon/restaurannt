@@ -13,9 +13,9 @@ class AddImageFoodPlatPack extends Migration
      */
     public function up()
     {
-        Schema::table('foods', function ($table) {
+       /* Schema::table('foods', function ($table) {
             $table->string('photo');
-        });
+        });*/
         Schema::table('plats', function ($table) {
             $table->string('photo');
         });

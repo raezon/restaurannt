@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logic;
 use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
@@ -55,9 +56,10 @@ class PlatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,ProductFactoryAction $productFactoryAction ,UploadAction $action)
+    public function store(ProductRequest $request,ProductFactoryAction $productFactoryAction ,UploadAction $action)
     {
-        $dto = $request->all([]);
+        $validated = $request->validated();
+        $dto = $validated->all([]);
         //penser a améliorer
         //upload image
         $pictureName = $action->storeFile($request);

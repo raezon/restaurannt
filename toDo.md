@@ -1,0 +1,4 @@
+- a revoir relations many to many
+- attach to user a role
+- learn more about polymorphic relations
+- request->all() on checkbox not working well without some measure

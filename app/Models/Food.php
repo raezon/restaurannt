@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $picture
  * @property string $created_at
  * @property string $updated_at
- * @property int $price
+ * @property float $price
  * @property string $photo
  * @property Product $product
  * @property PackPlatFood[] $packPlatFoods
  */
 class Food extends Model
 {
+
     /**
      * The table associated with the model.
      * 
@@ -35,7 +36,7 @@ class Food extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'name', 'picture', 'created_at', 'updated_at', 'price', 'photo'];
+    protected $fillable = ['product_id', 'name', 'picture', 'price'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

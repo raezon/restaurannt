@@ -22,36 +22,36 @@ class ProductFactoryAction
     public  function createProduct($type, $dto)
     {
         $dto['type'] = $type;
+
         switch ($type) {
             case 'food':
-                $productId = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto);
                 break;
 
             case 'plat':
-                $productId = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto);
                 break;
             case 'pack':
-                $productId = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto);
                 break;
         }
 
-        return $productId;
+        return $result['id'];
     }
     public function getProducts()
     {
         $foods = $this->foodRepository->getAll();
         $plats = $this->platRepository->getAll();
         $packs = $this->packProduct->getAll();
-        $result=[];
+        $result = [];
         foreach ($foods as $food) {
-            array_push($result,$food);
-          
+            array_push($result, $food);
         }
         foreach ($plats as $plat) {
-            array_push($result,$plat);
+            array_push($result, $plat);
         }
         foreach ($packs as $pack) {
-            array_push($result,$pack);
+            array_push($result, $pack);
         }
         return $result;
     }
