@@ -9,6 +9,6 @@ interface ProductRepositoryInterface
     public function getById($productId);
     public function deleteById($productId);
     public function getByCategory($name);
-    public function create(array $product) ;
+    public function create(array $product,$pictureName) ;
     public function update($productId, array $product);
 }

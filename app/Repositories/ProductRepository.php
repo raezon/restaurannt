@@ -23,16 +23,16 @@ class ProductRepository implements ProductRepositoryInterface
   {
     return Product::find($id);
   }
-  
+
   public function getByCategory($name)
   {
     return Product::where('category', $name)
       ->get();
   }
 
-  public function create(array $data)
+  public function create(array $data, $pictureName)
   {
-
+    $dto['picture'] = $pictureName;
     return Product::create($data);
   }
 

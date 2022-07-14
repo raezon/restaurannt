@@ -5,18 +5,16 @@ namespace App\Http\Controllers\Logic;
 use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
 use App\Interfaces\Repositories\FoodRepositoryInterface;
 use App\Interfaces\Repositories\ProductPackRepositoryInterface;
-use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
 
-class PlatsController extends Controller
+class FoodController extends Controller
 {
 
     public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
@@ -35,8 +33,8 @@ class PlatsController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $this->platRepository->getAll();
-        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
+        $data = $this->foodRepository->getAll();
+        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
     /**
@@ -47,29 +45,19 @@ class PlatsController extends Controller
     public function create(Request $request)
     {
 
-        return $this->presenter->handle(['name' => 'backend.plats.create', 'data' => '']);
+        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => '']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProductRequest $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
+
+    public function store(Request $request, UploadAction $action)
     {
-        $validated = $request->validated();
-        $dto = $validated->all([]);
-        //penser a améliorer
-        //upload image
+        $dto = $request->all([]);
         $pictureName = $action->storeFile($request);
-        //create product and need to be a factory
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
-        $productId = $factory->createProduct('plat', $dto, $pictureName);
-        $this->platRepository->create($dto, $productId, $pictureName);
-        return redirect('/plats');
+        $productId = $factory->createProduct('food', $dto, $pictureName);
+        $this->foodRepository->create($dto, $productId, $pictureName);
+        return redirect('/foods');
     }
-
 
     /**
      * Display the specified resource.
@@ -80,9 +68,22 @@ class PlatsController extends Controller
     public function show($id)
     {
         $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCategory($name)
+    {
+        $data = $this->Repository->getByCategory($name);
+        return response()->json([
+            'data' => $data
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,7 +93,7 @@ class PlatsController extends Controller
     public function edit($id)
     {
         $data = $this->Repository->getById($id);
-        return $this->presenter->handle(['name' => 'backend.plats.update', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.foods.update', 'data' => $data]);
     }
 
     public function update(Request $request): JsonResponse
@@ -105,14 +106,12 @@ class PlatsController extends Controller
 
         $data =  $this->Repository->update($id, $record);
 
-        return $this->presenter->handle(['name' => 'backend.plats.index', 'data' => $data]);
+        return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        $id = $request->route('id');
-        $this->Repository->delete($id);
-
-        return 'okey';
+        $this->Repository->deleteById($id);
+        return redirect('/foods');
     }
 }

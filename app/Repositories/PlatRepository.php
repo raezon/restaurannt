@@ -20,10 +20,11 @@ class PlatRepository implements PlatRepositoryInterface
   }
 
 
-  public function create(array $data)
+  public function create(array $data, $productId, $pictureName)
   {
-
-      return Plat::create($data);
+    $data['product_id'] = $productId;
+    $dto['picture'] = $pictureName;
+    return Plat::create($data);
   }
 
   public function update($id, array $data)

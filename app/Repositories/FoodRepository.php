@@ -24,9 +24,10 @@ class FoodRepository implements FoodRepositoryInterface
     return Food::where('category', $name)
       ->get();
   }
-  public function create(array $data)
+  public function create(array $data, $productId, $pictureName)
   {
-
+    $data['product_id'] = $productId;
+    $dto['picture'] = $pictureName;
     return Food::create($data);
   }
 

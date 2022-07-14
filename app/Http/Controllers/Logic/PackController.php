@@ -18,12 +18,12 @@ use App\Repositories\FoodRepository;
 class PackController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository,ProductPackRepositoryInterface $productPackRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
         $this->foodRepository = $foodRepository;
-        $this->productPackRepository=$productPackRepository;
+        $this->productPackRepository = $productPackRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -46,7 +46,6 @@ class PackController extends Controller
     {
         $plats = $this->platRepository->getAll()->toArray();
         $foods = $this->foodRepository->getAll()->toArray();
-
         $result = array_merge((array)$plats, (array)$foods);
         return $this->presenter->handle(['name' => 'backend.packs.create', 'data' => $result]);
     }
@@ -61,8 +60,9 @@ class PackController extends Controller
     {
         $dto = $request->all([]);
         $pack = $this->packRepository->create($dto);
+        //think on bulk insert 
         foreach ($dto['pack'] as $product) {
-            $this->productPackRepository->create(['product_id'=>$product,'pack_id'=>$pack['id']]);
+            $this->productPackRepository->create(['product_id' => $product, 'pack_id' => $pack['id']]);
         }
         return redirect('/packs ');
     }
@@ -105,7 +105,7 @@ class PackController extends Controller
         return $this->presenter->handle(['name' => 'backend.packs.index', 'data' => $data]);
     }
 
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
 
         $this->packRepository->deleteById($id);
