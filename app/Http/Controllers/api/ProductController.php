@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -61,6 +62,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $data = $this->Repository->getById($id);
+       // $data['picture']=Storage :: url($data['picture']);
         return $this->presenter->handle(['name' => 'backend.products.index', 'data' => $data]);
     }
 

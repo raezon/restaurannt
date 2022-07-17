@@ -13,6 +13,7 @@ use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
+use Illuminate\Support\Facades\Storage;
 
 class FoodController extends Controller
 {
@@ -51,8 +52,9 @@ class FoodController extends Controller
 
     public function store(Request $request, UploadAction $action)
     {
+
         $dto = $request->all([]);
-        $pictureName = $action->storeFile($request);
+        $pictureName=Storage::disk('local')->put('products', $request->photo);
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $productId = $factory->createProduct('food', $dto, $pictureName);
         $this->foodRepository->create($dto, $productId, $pictureName);

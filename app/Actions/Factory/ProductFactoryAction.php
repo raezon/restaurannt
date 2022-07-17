@@ -19,20 +19,20 @@ class ProductFactoryAction
         $this->packProduct = $packProduct;
     }
 
-    public  function createProduct($type, $dto)
+    public  function createProduct($type, $dto,$pictureName)
     {
         $dto['type'] = $type;
 
         switch ($type) {
             case 'food':
-                $result = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto,$pictureName);
                 break;
 
             case 'plat':
-                $result = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto,$pictureName);
                 break;
             case 'pack':
-                $result = $this->productRepository->create($dto);
+                $result = $this->productRepository->create($dto,$pictureName);
                 break;
         }
 

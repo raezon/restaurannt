@@ -15,11 +15,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Factory\ProductFactoryAction;
+use App\Mail\testMail;
+use App\Mail\testMarkDownEmail;
+use App\Notifications\StockAlertNotification;
+use Illuminate\Support\Facades\Mail;
 
 //needs here to be polymophic
 class BillController extends Controller
 {
-    public function __construct(FoodRepositoryInterface $foodRepository,PlatRepositoryInterface $platRepository,ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
+    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
     {
         $this->foodRepository = $foodRepository;
         $this->platRepository = $platRepository;
@@ -37,7 +41,10 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        $factory=new productFactoryAction($this->productRepository,$this->foodRepository, $this->platRepository,$this->packProduct);
+        $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
+        //   Mail::to("amardjebabla10@test.com")->send(new testMail($user));
+        Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
+        $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->packProduct);
         $factory->getProducts();
         // return $request;
         $data['category'] = $this->categoryRepository->getAll();
@@ -55,7 +62,10 @@ class BillController extends Controller
     public function store(Request $request)
     {
         $dto = $request->all([]);
-        return $this->Repository->create($dto);
+
+        $bill = $this->Repository->create($dto);
+        $bill->notify(new StockAlertNotification());
+        return $bill;
     }
 
     /**
@@ -69,7 +79,7 @@ class BillController extends Controller
 
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->option, true);
-        $ids = explode(',',$_POST['ids']);
+        $ids = explode(',', $_POST['ids']);
         $products = $this->productRepository->getMany($ids);
 
         return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);

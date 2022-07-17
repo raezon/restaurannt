@@ -27,7 +27,7 @@ class FoodRepository implements FoodRepositoryInterface
   public function create(array $data, $productId, $pictureName)
   {
     $data['product_id'] = $productId;
-    $dto['picture'] = $pictureName;
+    $data['picture'] = $pictureName;
     return Food::create($data);
   }
 

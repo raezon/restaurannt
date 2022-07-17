@@ -32,7 +32,7 @@ class ProductRepository implements ProductRepositoryInterface
 
   public function create(array $data, $pictureName)
   {
-    $dto['picture'] = $pictureName;
+    $data['picture'] = $pictureName;
     return Product::create($data);
   }
 

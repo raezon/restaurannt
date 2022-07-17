@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * @property integer $id
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Billing extends Model
 {
+    use  Notifiable;
     /**
      * The table associated with the model.
      * 
