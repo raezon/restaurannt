@@ -43,7 +43,7 @@ class BillController extends Controller
     {
         $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
         //   Mail::to("amardjebabla10@test.com")->send(new testMail($user));
-        Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
+       // Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->packProduct);
         $factory->getProducts();
         // return $request;
@@ -62,9 +62,7 @@ class BillController extends Controller
     public function store(Request $request)
     {
         $dto = $request->all([]);
-
         $bill = $this->Repository->create($dto);
-        $bill->notify(new StockAlertNotification());
         return $bill;
     }
 
@@ -76,12 +74,10 @@ class BillController extends Controller
      */
     public function show(Request $request)
     {
-
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->option, true);
         $ids = explode(',', $_POST['ids']);
         $products = $this->productRepository->getMany($ids);
-
         return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);
     }
 }

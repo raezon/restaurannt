@@ -13,6 +13,7 @@ use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
+use App\Notifications\StockAlertNotification;
 use Illuminate\Support\Facades\Storage;
 
 class FoodController extends Controller
@@ -57,7 +58,8 @@ class FoodController extends Controller
         $pictureName=Storage::disk('local')->put('products', $request->photo);
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $productId = $factory->createProduct('food', $dto, $pictureName);
-        $this->foodRepository->create($dto, $productId, $pictureName);
+        $food=$this->foodRepository->create($dto, $productId, $pictureName);
+        $food->notify(new StockAlertNotification());
         return redirect('/foods');
     }
 
@@ -69,7 +71,7 @@ class FoodController extends Controller
      */
     public function show($id)
     {
-        $data = $this->Repository->getById($id);
+        $data = $this->foodRepository->getById($id);
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
@@ -81,7 +83,7 @@ class FoodController extends Controller
      */
     public function showCategory($name)
     {
-        $data = $this->Repository->getByCategory($name);
+        $data = $this->foodRepository->getByCategory($name);
         return response()->json([
             'data' => $data
         ]);
@@ -94,7 +96,7 @@ class FoodController extends Controller
      */
     public function edit($id)
     {
-        $data = $this->Repository->getById($id);
+        $data = $this->foodRepository->getById($id);
         return $this->presenter->handle(['name' => 'backend.foods.update', 'data' => $data]);
     }
 
@@ -106,14 +108,14 @@ class FoodController extends Controller
             'details'
         ]);
 
-        $data =  $this->Repository->update($id, $record);
+        $data =  $this->foodRepository->update($id, $record);
 
         return $this->presenter->handle(['name' => 'backend.foods.index', 'data' => $data]);
     }
 
     public function destroy($id, Request $request)
     {
-        $this->Repository->deleteById($id);
+        $this->foodRepository->deleteById($id);
         return redirect('/foods');
     }
 }

@@ -51,7 +51,9 @@ Route::post('/categories/store', [CategoryController::class, 'store'])
     ->name('CategoriesStore');
 
 //entities controller
-Route::resource('bill', BillController::class);
+Route::middleware('isAdmin')->group(function () {
+    Route::resource('bill', BillController::class);
+});
 Route::resource('customers', CustomerController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('foods', FoodController::class);
