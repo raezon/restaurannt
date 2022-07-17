@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logic;
 
 use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
+use App\Events\ProductCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
@@ -53,12 +54,13 @@ class FoodController extends Controller
 
     public function store(Request $request, UploadAction $action)
     {
-
         $dto = $request->all([]);
-        $pictureName=Storage::disk('local')->put('products', $request->photo);
+        $pictureName = Storage::disk('local')->put('products', $request->photo);
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
+        // a améliorer tu peut faire un create food sans faire comme ça
         $productId = $factory->createProduct('food', $dto, $pictureName);
-        $food=$this->foodRepository->create($dto, $productId, $pictureName);
+        $food = $this->foodRepository->create($dto, $productId, $pictureName);
+        event(new ProductCreatedEvent($food));
         $food->notify(new StockAlertNotification());
         return redirect('/foods');
     }

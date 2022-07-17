@@ -54,19 +54,30 @@ Route::post('/categories/store', [CategoryController::class, 'store'])
 Route::middleware('isAdmin')->group(function () {
     Route::resource('bill', BillController::class);
 });
-Route::resource('customers', CustomerController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('foods', FoodController::class);
-Route::resource('inventory', InventoryController::class);
-Route::resource('invoices', InvoicesController::class);
-Route::resource('ingrediants', IngrediantController::class);
-Route::resource('orders', OrderController::class);
-Route::resource('plats', PlatsController::class);
-Route::resource('packs', PackController::class);
-Route::resource('reports', ReportsController::class);
-Route::resource('rooms', RoomsController::class);
-Route::resource('settings', SettingsController::class);
-Route::resource('transactions', TransactionController::class);
-Route::resource('users', UsersController::class);
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['middleware'=>'isAdmin','prefix'=>'gestion','as'=>'gestion'],function(){
+        
+    });
+   
+    Route::resource('bill', BillController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('foods', FoodController::class);
+    Route::resource('inventory', InventoryController::class);
+    Route::resource('invoices', InvoicesController::class);
+    Route::resource('ingrediants', IngrediantController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('plats', PlatsController::class);
+    Route::resource('packs', PackController::class);
+    Route::resource('reports', ReportsController::class);
+    Route::resource('rooms', RoomsController::class);
+    Route::resource('settings', SettingsController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('users', UsersController::class);
+});
+
+
 
 require __DIR__ . '/auth.php';

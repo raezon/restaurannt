@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -19,7 +20,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class Food extends Model
 {
-    use Notifiable;
+    use Notifiable,SoftDeletes;
     /**
      * The table associated with the model.
      * 

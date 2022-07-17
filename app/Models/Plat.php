@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property integer $id
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Plat extends Model
 {
-
+    use SoftDeletes;
     public function ingrediants()
     {
         return $this->belongsToMany(Ingrediant::class);

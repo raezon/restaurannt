@@ -21,3 +21,7 @@ il dit plator
 #### Gates Authorization (role admin)
 #### Create mail with markdown
   php artisan make:mail testMarkDownEmail -m emails.markdown-test
+#### Concepts a revoir
+notification,event,relations in laravels,middelware route
+#### Split web into several
+watch formation 8:27

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -23,7 +24,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class Product extends Model
 {
-    use Notifiable;
+    use SoftDeletes;
     /**
      * The "type" of the auto-incrementing ID.
      * 
