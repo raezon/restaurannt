@@ -42,7 +42,7 @@ class Product extends Model
      */
     public function foods()
     {
-        return $this->hasMany('App\Food');
+        return $this->hasMany('App\Models\Food');
     }
 
     /**
@@ -50,7 +50,7 @@ class Product extends Model
      */
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Models\Order');
     }
 
     /**
@@ -58,7 +58,7 @@ class Product extends Model
      */
     public function packsProducts()
     {
-        return $this->hasMany('App\PacksProduct');
+        return $this->hasMany('App\Models\PacksProduct');
     }
 
     /**
@@ -66,6 +66,11 @@ class Product extends Model
      */
     public function plats()
     {
-        return $this->hasMany('App\Plat');
+        return $this->hasMany('App\Models\Plat');
+    }
+
+    public function stocks()
+    {
+        return $this->belongsToMany(Stock::class);
     }
 }

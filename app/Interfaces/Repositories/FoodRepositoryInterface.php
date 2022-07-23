@@ -8,6 +8,6 @@ interface FoodRepositoryInterface
     public function getById($foodId);
     public function getByCategory($name);
     public function deleteById($foodId);
-    public function create(array $food,$productId,$pictureName) ;
+    public function create(array $food,$product,$pictureName) ;
     public function update($foodId, array $food);
 }

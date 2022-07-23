@@ -36,7 +36,7 @@ class ProductFactoryAction
                 break;
         }
 
-        return $result['id'];
+        return $result;
     }
     public function getProducts()
     {

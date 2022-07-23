@@ -12,10 +12,10 @@ use Illuminate\Http\Response;
 
 class InventoryController extends Controller
 {
-    public function __construct(InventoryRepositoryInterface  $repository,PresenterDispatcher $presenter) 
+    public function __construct(InventoryRepositoryInterface  $repository, PresenterDispatcher $presenter)
     {
         $this->Repository = $repository;
-        $this->presenter=$presenter;
+        $this->presenter = $presenter;
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         // return $request;
-        $data= $this->Repository->getAll();
+        $data = $this->Repository->getAll();
         return $this->presenter->handle(['name' => 'backend.inventory.index', 'data' => $data]);
     }
 
@@ -37,8 +37,7 @@ class InventoryController extends Controller
     public function create(Request $request)
     {
 
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.inventory.create', 'data' => '']);
     }
 
     /**
@@ -49,7 +48,9 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
+        $dto = $request->all([]);
+        $this->Repository->create($dto);
+        return redirect('/inventory');
     }
 
 

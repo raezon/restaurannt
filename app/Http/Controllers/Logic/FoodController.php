@@ -6,6 +6,7 @@ use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
 use App\Events\ProductCreatedEvent;
 use App\Http\Controllers\Controller;
+use App\Interfaces\Repositories\InventoryRepositoryInterface;
 use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
@@ -20,13 +21,14 @@ use Illuminate\Support\Facades\Storage;
 class FoodController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, InventoryRepositoryInterface $inventoryRepository, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
         $this->foodRepository = $foodRepository;
         $this->productPackRepository = $productPackRepository;
         $this->productRepository = $productRepository;
+        $this->inventoryRepository = $inventoryRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -47,24 +49,26 @@ class FoodController extends Controller
      */
     public function create(Request $request)
     {
-
-        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => '']);
+        $ingrediants = $this->inventoryRepository->getAll();
+        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => $ingrediants]);
     }
 
 
     public function store(Request $request, UploadAction $action)
     {
         $dto = $request->all([]);
-        $pictureName = Storage::disk('local')->put('products', $request->photo);
+        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
-        // a améliorer tu peut faire un create food sans faire comme ça
-        $productId = $factory->createProduct('food', $dto, $pictureName);
-        $food = $this->foodRepository->create($dto, $productId, $pictureName);
-        event(new ProductCreatedEvent($food));
-        $food->notify(new StockAlertNotification());
+        $product= $factory->createProduct('food', $dto, $pictureName);
+        //creation food
+        $food = $this->foodRepository->create($dto, $product, $pictureName);
+        //creation product stock
+        $product->stocks()->attach($request->input('stock'));
         return redirect('/foods');
     }
-
+  //  event(new ProductCreatedEvent($food));
+  //  $food->notify(new StockAlertNotification());
     /**
      * Display the specified resource.
      *
@@ -117,6 +121,8 @@ class FoodController extends Controller
 
     public function destroy($id, Request $request)
     {
+        $food = $this->foodRepository->getById($id);
+        $food->product()->delete();
         $this->foodRepository->deleteById($id);
         return redirect('/foods');
     }

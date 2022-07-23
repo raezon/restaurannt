@@ -31,4 +31,10 @@ class Stock extends Model
      * @var array
      */
     protected $fillable = ['name', 'quantity', 'created_at', 'updated_at'];
+
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

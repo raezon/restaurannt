@@ -34,6 +34,12 @@ class BillController extends Controller
         $this->presenter = $presenter;
     }
 
+    public function constructMenu()
+    {
+        $data['category'] = $this->categoryRepository->getAll();
+        $data['food'] = $this->foodRepository->getAll();
+        return $data;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,15 +47,13 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
+       // $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
         //   Mail::to("amardjebabla10@test.com")->send(new testMail($user));
-       // Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
+        // Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->packProduct);
         $factory->getProducts();
-        // return $request;
-        $data['category'] = $this->categoryRepository->getAll();
-        $data['food'] = $this->foodRepository->getAll();
-        return $this->presenter->handle(['name' => 'backend.bill.index', 'data' => $data]);
+        $menu = $this->constructMenu();
+        return $this->presenter->handle(['name' => 'backend.bill.index', 'data' => $menu]);
     }
 
 

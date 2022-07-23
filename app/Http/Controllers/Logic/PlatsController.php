@@ -15,6 +15,7 @@ use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
+use Illuminate\Support\Facades\Storage;
 
 class PlatsController extends Controller
 {
@@ -58,12 +59,8 @@ class PlatsController extends Controller
      */
     public function store(ProductRequest $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
     {
-        $validated = $request->validated();
-        $dto = $validated->all([]);
-        //penser a améliorer
-        //upload image
-        $pictureName = $action->storeFile($request);
-        //create product and need to be a factory
+        $dto = $request->validated();
+        $pictureName = Storage::disk('public')->put('products', $request->photo);
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $productId = $factory->createProduct('plat', $dto, $pictureName);
         $this->platRepository->create($dto, $productId, $pictureName);
