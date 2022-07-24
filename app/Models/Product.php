@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 /**
  * @property integer $id
  * @property string $name
  * @property string $description
  * @property string $type
- * @property int $picture
+ * @property string $picture
  * @property string $sku
  * @property float $price
  * @property string $created_at
  * @property string $updated_at
- * @property string $category
+ * @property string $deleted_at
  * @property Food[] $foods
  * @property Order[] $orders
  * @property PacksProduct[] $packsProducts
  * @property Plat[] $plats
+ * @property ProductCategory[] $productCategories
+ * @property ProductStock[] $productStocks
  */
 class Product extends Model
 {
-    use SoftDeletes;
     /**
      * The "type" of the auto-incrementing ID.
      * 
@@ -35,14 +34,14 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'description', 'type', 'picture', 'sku', 'price', 'created_at', 'updated_at', 'category'];
+    protected $fillable = ['name', 'description', 'type', 'picture', 'sku', 'price', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function foods()
     {
-        return $this->hasMany('App\Models\Food');
+        return $this->hasMany('App\Model\Food');
     }
 
     /**
@@ -50,7 +49,7 @@ class Product extends Model
      */
     public function orders()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Model\Order');
     }
 
     /**
@@ -58,7 +57,7 @@ class Product extends Model
      */
     public function packsProducts()
     {
-        return $this->hasMany('App\Models\PacksProduct');
+        return $this->hasMany('App\Model\PacksProduct');
     }
 
     /**
@@ -66,11 +65,22 @@ class Product extends Model
      */
     public function plats()
     {
-        return $this->hasMany('App\Models\Plat');
+        return $this->hasMany('App\Model\Plat');
     }
 
-    public function stocks()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productCategories()
     {
-        return $this->belongsToMany(Stock::class);
+        return $this->hasMany('App\Model\ProductCategory');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productStocks()
+    {
+        return $this->hasMany('App\Model\ProductStock');
     }
 }

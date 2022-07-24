@@ -11,6 +11,7 @@ use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
 use App\Interfaces\Repositories\FoodRepositoryInterface;
+use App\Interfaces\Repositories\CategoryRepositoryInterface;
 use App\Interfaces\Repositories\ProductPackRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 class FoodController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, InventoryRepositoryInterface $inventoryRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, InventoryRepositoryInterface $inventoryRepository, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
@@ -29,6 +30,7 @@ class FoodController extends Controller
         $this->productPackRepository = $productPackRepository;
         $this->productRepository = $productRepository;
         $this->inventoryRepository = $inventoryRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -50,7 +52,9 @@ class FoodController extends Controller
     public function create(Request $request)
     {
         $ingrediants = $this->inventoryRepository->getAll();
-        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => $ingrediants]);
+        $categories = $this->categoryRepository->getAll();
+  
+        return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => [$ingrediants, $categories]]);
     }
 
 
@@ -60,15 +64,15 @@ class FoodController extends Controller
         $pictureName = Storage::disk('public')->put('products', $request->photo);
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
-        $product= $factory->createProduct('food', $dto, $pictureName);
+        $product = $factory->createProduct('food', $dto, $pictureName);
         //creation food
         $food = $this->foodRepository->create($dto, $product, $pictureName);
         //creation product stock
         $product->stocks()->attach($request->input('stock'));
         return redirect('/foods');
     }
-  //  event(new ProductCreatedEvent($food));
-  //  $food->notify(new StockAlertNotification());
+    //  event(new ProductCreatedEvent($food));
+    //  $food->notify(new StockAlertNotification());
     /**
      * Display the specified resource.
      *

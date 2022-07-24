@@ -4,12 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tailwind Multiselect with tom-select</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"
-      rel="stylesheet"
-    />
+    <title>multi select</title>
   </head>
 
     <div class="w-3/3">
@@ -33,7 +28,6 @@
         </select>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script>
       new TomSelect('#select-role', {
         maxItems: 100,
