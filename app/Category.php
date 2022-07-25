@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $created_at
  * @property string $updated_at
+ * @property CategoryProduct[] $categoryProducts
  */
 class Category extends Model
 {
@@ -31,9 +32,11 @@ class Category extends Model
      */
     protected $fillable = ['name', 'created_at', 'updated_at'];
 
-
-    public function products()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categoryProducts()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->hasMany('App\CategoryProduct');
     }
 }

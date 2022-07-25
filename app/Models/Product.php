@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    
     /**
      * The "type" of the auto-incrementing ID.
      * 
@@ -41,7 +42,7 @@ class Product extends Model
      */
     public function foods()
     {
-        return $this->hasMany('App\Model\Food');
+        return $this->hasMany('App\Models\Food');
     }
 
     /**
@@ -49,7 +50,7 @@ class Product extends Model
      */
     public function orders()
     {
-        return $this->hasMany('App\Model\Order');
+        return $this->hasMany('App\Models\Order');
     }
 
     /**
@@ -57,7 +58,7 @@ class Product extends Model
      */
     public function packsProducts()
     {
-        return $this->hasMany('App\Model\PacksProduct');
+        return $this->hasMany('App\Models\PacksProduct');
     }
 
     /**
@@ -65,22 +66,22 @@ class Product extends Model
      */
     public function plats()
     {
-        return $this->hasMany('App\Model\Plat');
+        return $this->hasMany('App\Models\Plat');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function productCategories()
+    public function categories()
     {
-        return $this->hasMany('App\Model\ProductCategory');
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function productStocks()
+    public function stocks()
     {
-        return $this->hasMany('App\Model\ProductStock');
+        return $this->belongsToMany(Stock::class)->withTimestamps();
     }
 }

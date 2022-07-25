@@ -62,7 +62,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $data = $this->Repository->getById($id);
-       // $data['picture']=Storage :: url($data['picture']);
+        // $data['picture']=Storage :: url($data['picture']);
         return $this->presenter->handle(['name' => 'backend.products.index', 'data' => $data]);
     }
 
@@ -75,6 +75,8 @@ class ProductController extends Controller
     public function showCategory($name)
     {
         $data = $this->Repository->getByCategory($name);
+    //    $groups = File::find(i)->groups()->lists('name');
+
         return response()->json([
             'data' => $data
         ]);
@@ -107,8 +109,6 @@ class ProductController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->route('id');
-        $this->Repository->delete($id);
-
-        return 'okey';
+        return $this->Repository->delete($id);
     }
 }

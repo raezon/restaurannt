@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\Repositories\ProductRepositoryInterface;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -24,10 +25,9 @@ class ProductRepository implements ProductRepositoryInterface
     return Product::find($id);
   }
 
-  public function getByCategory($name)
+  public function getByCategory($id)
   {
-    return Product::where('category', $name)
-      ->get();
+    return Category::with('products')->where('id', $id)->first();
   }
 
   public function create(array $data, $pictureName)

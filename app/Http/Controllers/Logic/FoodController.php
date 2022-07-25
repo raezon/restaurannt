@@ -53,7 +53,7 @@ class FoodController extends Controller
     {
         $ingrediants = $this->inventoryRepository->getAll();
         $categories = $this->categoryRepository->getAll();
-  
+
         return $this->presenter->handle(['name' => 'backend.foods.create', 'data' => [$ingrediants, $categories]]);
     }
 
@@ -69,6 +69,8 @@ class FoodController extends Controller
         $food = $this->foodRepository->create($dto, $product, $pictureName);
         //creation product stock
         $product->stocks()->attach($request->input('stock'));
+        //creation category attached to product
+        $product->categories()->attach($request->input('category'));
         return redirect('/foods');
     }
     //  event(new ProductCreatedEvent($food));
