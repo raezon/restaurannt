@@ -20,10 +20,11 @@ class PackRepository implements PackRepositoryInterface
   }
 
 
-  public function create(array $data)
+  public function create(array $data, $product, $pictureName)
   {
 
-      return Pack::create($data);
+    $data['picture'] = $pictureName;
+    return  $product->plats()->create($data);
   }
 
   public function update($id, array $data)

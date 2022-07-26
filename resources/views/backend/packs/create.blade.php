@@ -24,10 +24,7 @@
                     </div>
                     <!-- product -->
                     <div>
-                        <label class="block text-sm font-bold text-gray-700" for="title">
-                            select product
-                        </label>
-                        <x-multi-select :products="$data"></x-multi-select>
+                        <x-multi-select :products="$data[2]"></x-multi-select>
                     </div>
 
                     <!-- Description -->
@@ -48,10 +45,9 @@
                     </div>
                     <!-- category -->
                     <div class="mt-4">
-                        <label class="block text-sm font-bold text-gray-700" for="password">
-                            category
-                        </label>
-                        <input class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="category" placeholder="" />
+                        <div>
+                            <x-categories :categories="$data[1]"></x-categories>
+                        </div>
                     </div>
 
                     <div>

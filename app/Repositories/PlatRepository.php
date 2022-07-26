@@ -11,29 +11,28 @@ class PlatRepository implements PlatRepositoryInterface
 
   public function getAll()
   {
-      return Plat::all();
+    return Plat::all();
   }
 
   public function getById($id)
   {
-      return Plat::find($id);
+    return Plat::find($id);
   }
 
 
-  public function create(array $data, $productId, $pictureName)
+  public function create(array $data, $product, $pictureName)
   {
-    $data['product_id'] = $productId;
     $data['picture'] = $pictureName;
-    return Plat::create($data);
+    return  $product->plats()->create($data);
   }
 
   public function update($id, array $data)
   {
-      Plat::where('id', $id)->update($data);
+    Plat::where('id', $id)->update($data);
   }
 
   public function deleteById($id)
   {
-      return Plat::destroy($id);
+    return Plat::destroy($id);
   }
 }

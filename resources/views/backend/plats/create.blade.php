@@ -12,7 +12,7 @@
             </div>
 
             <div class="w-full px-6 py-4 bg-white rounded shadow-md ring-1 ring-gray-900/10">
-                <form method="POST" action="/plats/store"  enctype="multipart/form-data">
+                <form method="POST" action="/plats/store" enctype="multipart/form-data">
                     @csrf
                     <!-- name -->
                     <div>
@@ -23,6 +23,10 @@
                         <input class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="name" placeholder="180" />
                     </div>
 
+                    <!-- Ingrediants -->
+                    <div>
+                        <x-ingrediants :ingrediants="$data[0]"></x-ingrediants>
+                    </div>
                     <!-- Description -->
                     <div class="mt-4">
                         <label class="block text-sm font-bold text-gray-700" for="password">
@@ -41,10 +45,9 @@
                     </div>
                     <!-- category -->
                     <div class="mt-4">
-                        <label class="block text-sm font-bold text-gray-700" for="password">
-                            category
-                        </label>
-                        <input class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="category" placeholder="" />
+                        <div>
+                            <x-categories :categories="$data[1]"></x-categories>
+                        </div>
                     </div>
 
                     <div>

@@ -15,18 +15,22 @@ use App\Models\Plat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Response\PresenterDispatcher;
+use App\Interfaces\Repositories\CategoryRepositoryInterface;
+use App\Interfaces\Repositories\InventoryRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
 
 class PlatsController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, InventoryRepositoryInterface $inventoryRepository, CategoryRepositoryInterface $categoryRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
         $this->foodRepository = $foodRepository;
         $this->productPackRepository = $productPackRepository;
         $this->productRepository = $productRepository;
+        $this->inventoryRepository = $inventoryRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->presenter = $presenter;
     }
     /**
@@ -47,8 +51,9 @@ class PlatsController extends Controller
      */
     public function create(Request $request)
     {
-
-        return $this->presenter->handle(['name' => 'backend.plats.create', 'data' => '']);
+        $ingrediants = $this->inventoryRepository->getAll();
+        $categories = $this->categoryRepository->getAll();
+        return $this->presenter->handle(['name' => 'backend.plats.create', 'data' => [$ingrediants, $categories]]);
     }
 
     /**
@@ -59,11 +64,17 @@ class PlatsController extends Controller
      */
     public function store(ProductRequest $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
     {
-        $dto = $request->validated();
+        $dto = $request->all([]);
         $pictureName = Storage::disk('public')->put('products', $request->photo);
+        //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
-        $productId = $factory->createProduct('plat', $dto, $pictureName);
-        $this->platRepository->create($dto, $productId, $pictureName);
+        $product = $factory->createProduct('plat', $dto, $pictureName);
+        //creation plat
+        $plat = $this->platRepository->create($dto, $product, $pictureName);
+        //creation product stock
+        $product->stocks()->attach($request->input('stock'));
+        //creation category attached to product
+        $product->categories()->attach($request->input('category'));
         return redirect('/plats');
     }
 

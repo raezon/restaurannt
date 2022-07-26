@@ -45,9 +45,9 @@
                     </div>
                     <!-- category -->
                     <div class="mt-4">
-                    <div>
-                        <x-categories :categories="$data[1]"></x-categories>
-                    </div>
+                        <div>
+                            <x-categories :categories="$data[1]"></x-categories>
+                        </div>
                     </div>
 
                     <div>
