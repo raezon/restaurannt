@@ -13,7 +13,7 @@
         $scope.ids = [];
         $scope.getProducts = function getProducts(name) {
 
-            $http.get("http://restaurant2023.test/api/product/category/" + name)
+            $http.get("http://127.0.0.1:8000/api/product/category/" + name)
                 .then(function (response) {
                     $scope.products = response.data.data;
                 });
@@ -38,7 +38,7 @@
         }
         //save new record / update existing record
         $scope.save = function (modalstate, id) {
-            var url = "http://restaurant2023.test/api/product";
+            var url = "http://127.0.0.1:8000/api/product";
 
             //append employee id to the URL if the form is in edit mode
             if (modalstate === 'edit') {
@@ -65,7 +65,7 @@
             if (isConfirmDelete) {
                 $http({
                     method: 'DELETE',
-                    url: "http://restaurant2023.test/api/product" + id
+                    url: "http://127.0.0.1:8000/api/product" + id
                 }).
                     success(function (data) {
                         console.log(data);

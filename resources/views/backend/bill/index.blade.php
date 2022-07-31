@@ -105,7 +105,7 @@
         </div>
     </div>
     <div class="col text-center">
-        <form action="http://restaurant2023.test/bill/view" method="POST" class="pay-bill">
+        <form action="http://127.0.0.1:8000/bill/view" method="POST" class="pay-bill">
             @csrf
 
             <button type="submit" ng-click="printBill()" id="imp" class="bg-teal-500 hover:bg-teal-700 text-white font-bold  rounded" type="button" style="width: 150px;height: 50px;margin: 20px;">
