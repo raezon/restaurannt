@@ -18,19 +18,23 @@ use App\Actions\Factory\ProductFactoryAction;
 use App\Mail\testMail;
 use App\Mail\testMarkDownEmail;
 use App\Notifications\StockAlertNotification;
+use App\Repositories\InventoryRepository;
+use App\Services\StockService;
 use Illuminate\Support\Facades\Mail;
 
 //needs here to be polymophic
 class BillController extends Controller
 {
-    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, PresenterDispatcher $presenter)
+    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, StockService $stockService, InventoryRepository $inventoryRepository, PresenterDispatcher $presenter)
     {
         $this->foodRepository = $foodRepository;
         $this->platRepository = $platRepository;
         $this->packProduct = $packProduct;
+        $this->inventoryRepository = $inventoryRepository;
         $this->categoryRepository = $categoryRepository;
         $this->settingsRepository = $settingsRepository;
         $this->productRepository = $productRepository;
+        $this->stockService = $stockService;
         $this->presenter = $presenter;
     }
 
@@ -47,7 +51,7 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-       // $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
+        // $user = ['email' => "amar@gmail.com", 'name' => 'monsieur ammar'];
         //   Mail::to("amardjebabla10@test.com")->send(new testMail($user));
         // Mail::to("amardjebabla10@test.com")->send(new testMarkDownEmail());
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->packProduct);
@@ -78,10 +82,17 @@ class BillController extends Controller
      */
     public function show(Request $request)
     {
+        //assets
+        //getAssets
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->option, true);
         $ids = explode(',', $_POST['ids']);
-        $products = $this->productRepository->getMany($ids);
+        //getStocks
+        $products = $this->productRepository->getStocks($ids);
+        //update stock
+        return $this->stockService->updateStock($products);
+
+
         return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);
     }
 }

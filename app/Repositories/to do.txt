@@ -1,0 +1,2 @@
+i want when i get all stock with respective product
+get All stock id with quantity 

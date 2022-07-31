@@ -6,6 +6,7 @@ use App\Interfaces\Repositories\ProductRepositoryInterface;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Stock;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -18,6 +19,16 @@ class ProductRepository implements ProductRepositoryInterface
   {
     return Product::find($ids);
   }
+  public function getStocks($ids)
+  {
+
+    return Product::whereIn('id', $ids)->with(
+      'stocks'
+    )->get();
+
+    //  return Stock::with('products')->where('id',99)->get();
+  }
+
 
 
   public function getById($id)
