@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Logic;
 
+use App\Services\StockService;
 use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
 use App\Events\ProductCreatedEvent;
@@ -19,10 +20,11 @@ use App\Http\Response\PresenterDispatcher;
 use App\Notifications\StockAlertNotification;
 use Illuminate\Support\Facades\Storage;
 
+
 class FoodController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, InventoryRepositoryInterface $inventoryRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository,StockService $stockService  , ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, InventoryRepositoryInterface $inventoryRepository, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
@@ -31,6 +33,7 @@ class FoodController extends Controller
         $this->productRepository = $productRepository;
         $this->inventoryRepository = $inventoryRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->stockService = $stockService;
         $this->presenter = $presenter;
     }
     /**
@@ -63,7 +66,6 @@ class FoodController extends Controller
         $dto = $request->all([]);
         $pictureName = "test";
         //  $pictureName = Storage::disk('public')->put('products', $request->photo);
-
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $product = $factory->createProduct('food', $dto, $pictureName);
@@ -71,17 +73,12 @@ class FoodController extends Controller
         $this->foodRepository->create($dto, $product, $pictureName);
         //
         //creation product stock
-        //service
-        $ingrediants = $request->input('ingrediants');
-        $quantities = $request->input('quantity');
 
-        for ($i = 0; $i < sizeof($request->input('ingrediants')); $i++) {
-            $product->stocks()->attach($ingrediants[$i], ['quantity' => $quantities[$i]]);
-        }
-
+        $this->stockService->attachPivotTable($request, $product);
 
         //creation category attached to product
         $product->categories()->attach($request->input('category'));
+
         return redirect('/foods');
     }
     //  event(new ProductCreatedEvent($food));

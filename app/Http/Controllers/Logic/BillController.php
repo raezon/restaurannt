@@ -90,7 +90,7 @@ class BillController extends Controller
         //getStocks
         $products = $this->productRepository->getStocks($ids);
         //update stock
-        return $this->stockService->updateStock($products);
+        $this->stockService->updateStock($products);
 
 
         return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);

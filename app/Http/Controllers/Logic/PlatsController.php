@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Logic;
 
+use App\Services\StockService;
 use App\Actions\UploadAction;
 use App\Actions\Factory\ProductFactoryAction;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Storage;
 class PlatsController extends Controller
 {
 
-    public function __construct(PackRepositoryInterface  $packRepository, InventoryRepositoryInterface $inventoryRepository, CategoryRepositoryInterface $categoryRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, PresenterDispatcher $presenter)
+    public function __construct(PackRepositoryInterface  $packRepository, InventoryRepositoryInterface $inventoryRepository, CategoryRepositoryInterface $categoryRepository, ProductPackRepositoryInterface $productPackRepository, ProductRepositoryInterface $productRepository, FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository,StockService $stockService, PresenterDispatcher $presenter)
     {
         $this->packRepository = $packRepository;
         $this->platRepository = $platRepository;
@@ -31,6 +32,7 @@ class PlatsController extends Controller
         $this->productRepository = $productRepository;
         $this->inventoryRepository = $inventoryRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->stockService = $stockService;
         $this->presenter = $presenter;
     }
     /**
@@ -65,14 +67,15 @@ class PlatsController extends Controller
     public function store(ProductRequest $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
     {
         $dto = $request->all([]);
-        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        $pictureName="test";
+      //  $pictureName = Storage::disk('public')->put('products', $request->photo);
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $product = $factory->createProduct('plat', $dto, $pictureName);
         //creation plat
         $plat = $this->platRepository->create($dto, $product, $pictureName);
         //creation product stock
-        $product->stocks()->attach($request->input('stock'));
+        $this->stockService->attachPivotTable($request, $product);
         //creation category attached to product
         $product->categories()->attach($request->input('category'));
         return redirect('/plats');
