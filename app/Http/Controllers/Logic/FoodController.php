@@ -61,14 +61,25 @@ class FoodController extends Controller
     public function store(Request $request, UploadAction $action)
     {
         $dto = $request->all([]);
-        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        $pictureName = "test";
+        //  $pictureName = Storage::disk('public')->put('products', $request->photo);
+
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $product = $factory->createProduct('food', $dto, $pictureName);
         //creation food
-        $food = $this->foodRepository->create($dto, $product, $pictureName);
+        $this->foodRepository->create($dto, $product, $pictureName);
+        //
         //creation product stock
-        $product->stocks()->attach($request->input('stock'));
+        //service
+        $ingrediants = $request->input('ingrediants');
+        $quantities = $request->input('quantity');
+
+        for ($i = 0; $i < sizeof($request->input('ingrediants')); $i++) {
+            $product->stocks()->attach($ingrediants[$i], ['quantity' => $quantities[$i]]);
+        }
+
+
         //creation category attached to product
         $product->categories()->attach($request->input('category'));
         return redirect('/foods');
