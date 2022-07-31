@@ -26,7 +26,8 @@
                 <table class="min-w-full">
                     <tr>
                         <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name</th>
-                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Type</th>
+                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description</th>
+                        <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Price</th>
                         <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50" width="180px">Action</th>
                     </tr>
                     <tbody class="bg-white">
@@ -34,7 +35,8 @@
                         <tr>
 
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->name }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->type }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->description }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $element->price }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <form action="{{ route('rooms.destroy',$element->id) }}" method="POST">
 

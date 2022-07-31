@@ -41,6 +41,8 @@ Route::post('/bill/view', [BillController::class, 'show'])
     ->name('billView');
 Route::post('/foods/store', [FoodController::class, 'store'])
     ->name('FoodStore');
+Route::post('/rooms/store', [RoomsController::class, 'store'])
+->name('RoomStore');
 Route::post('/inventory/store', [InventoryController::class, 'store'])
     ->name('InventoryStore');
 Route::post('/plats/store', [PlatsController::class, 'store'])

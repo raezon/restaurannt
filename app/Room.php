@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $price
  * @property string $photo
  */
-class Rooms extends Model
+class Room extends Model
 {
     /**
      * The table associated with the model.

@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Logic;
 
-use App\Actions\StorePanelAction;
 use App\Http\Controllers\Controller;
 use App\Http\Response\PresenterDispatcher;
 use App\Interfaces\Repositories\RoomsRepositoryInterface;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class RoomsController extends Controller
 {
-    public function __construct(RoomsRepositoryInterface  $repository,PresenterDispatcher $presnter) 
+    public function __construct(RoomsRepositoryInterface $repository, PresenterDispatcher $presnter)
     {
         $this->Repository = $repository;
-        $this->presenter=$presnter;
+        $this->presenter = $presnter;
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class RoomsController extends Controller
     public function index(Request $request)
     {
         // return $request;
-        $data= $this->Repository->getAll();
+        $data = $this->Repository->getAll();
         return $this->presenter->handle(['name' => 'backend.rooms.index', 'data' => $data]);
     }
 
@@ -36,9 +35,7 @@ class RoomsController extends Controller
      */
     public function create(Request $request)
     {
-
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        return $this->presenter->handle(['name' => 'backend.rooms.create', 'data' => []]);
     }
 
     /**
@@ -49,9 +46,12 @@ class RoomsController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
-    }
+        $dto = $request->all([]);
+        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        $this->Repository->create($dto,$pictureName);
 
+        return redirect('/rooms');
+    }
 
     /**
      * Display the specified resource.
@@ -80,10 +80,10 @@ class RoomsController extends Controller
         $id = $request->route('id');
         $record = $request->only([
             'client',
-            'details'
+            'details',
         ]);
 
-        return  $this->Repository->update($id, $record);
+        return $this->Repository->update($id, $record);
     }
 
     public function destroy(Request $request)
