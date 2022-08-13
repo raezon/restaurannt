@@ -15,17 +15,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Factory\ProductFactoryAction;
+use App\Interfaces\Repositories\OrderRepositoryInterface;
 use App\Mail\testMail;
 use App\Mail\testMarkDownEmail;
 use App\Notifications\StockAlertNotification;
 use App\Repositories\InventoryRepository;
+use App\Services\OrderService;
 use App\Services\StockService;
 use Illuminate\Support\Facades\Mail;
 
 //needs here to be polymophic
 class BillController extends Controller
 {
-    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, StockService $stockService, InventoryRepository $inventoryRepository, PresenterDispatcher $presenter)
+    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, StockService $stockService, InventoryRepository $inventoryRepository,OrderRepositoryInterface $orderRepository,OrderService $orderService, PresenterDispatcher $presenter)
     {
         $this->foodRepository = $foodRepository;
         $this->platRepository = $platRepository;
@@ -35,6 +37,8 @@ class BillController extends Controller
         $this->settingsRepository = $settingsRepository;
         $this->productRepository = $productRepository;
         $this->stockService = $stockService;
+        $this->orderRepository=$orderRepository;
+        $this->orderService=$orderService;
         $this->presenter = $presenter;
     }
 
@@ -83,15 +87,19 @@ class BillController extends Controller
     public function show(Request $request)
     {
         //assets
-        //getAssets
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->option, true);
-        $ids = explode(',', $_POST['ids']);
-        //getStocks
-        $products = $this->productRepository->getStocks($ids);
-        //update stock
-        $this->stockService->updateStock($products);
+        $ids=$_POST['ids'];
+        $productsIds = explode(',', $ids);
 
+        //getStocks
+        $products = $this->productRepository->getStocks($productsIds);
+        //update stock
+        $this->stockService->updateStock($products,$this->inventoryRepository);
+        //create invoice
+        // i will use here a foreach than i will think on optimizing it 
+      
+        $this->orderService->createOrder($this->orderRepository,$productsIds,1);
 
         return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);
     }

@@ -38,8 +38,7 @@ class InvoicesController extends Controller
      */
     public function show($id)
     {
-        $data= $this->Repository->getById($id);
-
+        $data= $this->Repository->getAll();
         return $this->presenter->handle(['name' => 'backend.invoices.show', 'data' => $data]);
     }
 

@@ -22,7 +22,7 @@ class Customer extends Model
      * 
      * @var string
      */
-    protected $table = 'customer';
+    protected $table = 'customers';
 
     /**
      * The "type" of the auto-incrementing ID.

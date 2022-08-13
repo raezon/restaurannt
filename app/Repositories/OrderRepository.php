@@ -10,8 +10,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     public function create(array $order)
     {
-        $plats = [1, 2, 3, 4];
-        return $plats;
+        return Order::create($order);
     }
 
     public function getAll()

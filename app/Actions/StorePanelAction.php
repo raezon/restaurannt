@@ -19,11 +19,11 @@ class StorePanelAction
                 'url' => 'bill'
             ],
 
-            '2' => [
+        /*    '2' => [
                 'name' => 'Shopping',
                 'img' => 'goods.png',
                 'url' => 'ingrediants'
-            ],
+            ],*/
             '3' => [
                 'name' => 'Categories',
                 'img' => 'barbecue.png',
@@ -49,16 +49,16 @@ class StorePanelAction
                 'img' => 'warehouse.png',
                 'url' => 'inventory'
             ],
-            '8' => [
+           /* '8' => [
                 'name' => 'Reports',
                 'img' => 'report.png',
                 'url' => 'reports'
-            ],
-            '9' => [
+            ],*/
+          /*  '9' => [
                 'name' => 'Transaction',
                 'img' => 'visa.png',
                 'url' => 'transactions'
-            ],
+            ],*/
             '10' => [
                 'name' => 'The rooms',
                 'img' => 'store.png',

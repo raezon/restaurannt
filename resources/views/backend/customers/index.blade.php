@@ -10,7 +10,7 @@
         <a href="{{ route('dashboard') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">Back</a>
     </div>
     <div class="flex justify-end mt-10">
-        <a href="{{ route('customers.create') }}" class="px-2 py-1 rounded-md bg-blue-500 text-sky-100 hover:bg-blue-700">All customers</a>
+        <a href="{{ route('customers.create') }}" class="px-2 py-1 rounded-md bg-blue-500 text-sky-100 hover:bg-blue-700">create customer</a>
     </div>
 
     <div class="flex flex-col mt-10">
