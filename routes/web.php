@@ -53,6 +53,8 @@ Route::get('/packs/show', [PackController::class, 'index'])
     ->name('Packs');
 Route::post('/categories/store', [CategoryController::class, 'store'])
     ->name('CategoriesStore');
+Route::post('/settings/create', [SettingsController::class, 'create'])
+->name('SettingsStore');
 
 //entities controller
 Route::middleware('isAdmin')->group(function () {

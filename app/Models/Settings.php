@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $phone
  * @property string $location
- * @property string $apear_phone
- * @property string $apear_email
- * @property string $option
+ * @property string $store_phone
+ * @property string $store_email
+ * @property string $options
  * @property string $created_at
  * @property string $updated_at
  */
@@ -24,7 +24,7 @@ class Settings extends Model
      * 
      * @var string
      */
-    protected $table = 'parameter';
+    protected $table = 'setttings';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -36,5 +36,5 @@ class Settings extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'owner_name', 'email', 'phone', 'location', 'apear_phone', 'apear_email', 'option', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'owner_name', 'email', 'phone', 'location', 'store_phone', 'store_email', 'options', 'created_at', 'updated_at'];
 }

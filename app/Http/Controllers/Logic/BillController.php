@@ -88,7 +88,7 @@ class BillController extends Controller
     {
         //assets
         $settings = $this->settingsRepository->getOne();
-        $image = json_decode($settings->option, true);
+        $image = json_decode($settings->options, true);
         $ids=$_POST['ids'];
         $productsIds = explode(',', $ids);
 

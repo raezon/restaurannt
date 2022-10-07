@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
- * @property integer $product_id
  * @property integer $user_id
+ * @property integer $product_id
  * @property string $created_at
  * @property string $updated_at
- * @property User $user
  * @property Product $product
+ * @property User $user
+ * @property OrderItem[] $orderItems
  */
 class Order extends Model
 {
@@ -32,7 +33,15 @@ class Order extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_id', 'user_id', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'product_id', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -43,10 +52,10 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function product()
+    public function orderItems()
     {
-        return $this->belongsTo('App\Product');
+        return $this->hasMany('App\OrderItem');
     }
 }

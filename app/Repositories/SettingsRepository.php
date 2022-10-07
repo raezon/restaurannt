@@ -17,7 +17,11 @@ class SettingsRepository implements SettingsRepositoryInterface
   
     public function create(array $data)
     {
-  
+        $option=[];
+        $option['width']=$data['logo_width'];
+        $option['height']= $data['logo_height'];
+        $data['options']=json_encode($option,true);
+        
         return Settings::create($data);
     }
   

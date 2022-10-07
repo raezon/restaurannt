@@ -4,8 +4,8 @@
 @section('content')
 
 <body  class="bg-white-100">
-    <form action="Parameter.php" method="POST" enctype="multipart/form-data">
-
+    <form action="settings/create" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="grid grid-cols-6 gap-4 pt-4">
             <div class="col-start-2 col-span-4">
                 <div class="bg-slate-300 border-2  text-center"><label class="col-form-label  rounded   d-block" style="padding: 10px;font-size: 21px;margin: 1px;padding-top: 3px;padding-bottom: 3px;">Paramètres du restaurant<br>Parameter<br></label></div>
@@ -19,25 +19,25 @@
                         <td class="p-2 border border-slate-300" style="width: 20%;">
                             <input type="file" name="logo" id="logo">
                         <td class="p-2 border border-slate-300" style="width: 20%;">:Affichage du logo</td>
-                        <td class="p-2 border border-slate-300" style="width: 20%;"><input type="text" id="restaurant_name" name="restaurant_name" value=""></td>
+                        <td class="p-2 border border-slate-300" style="width: 20%;"><input type="text" id="restaurant_name" name="name" value=""></td>
                         <td class="p-2 border border-slate-300" style="width: 20%;">&nbsp;: Nom du restaurant</td>
                     </tr>
                     <tr>
                         <td class="p-2 border border-slate-300"><input type="text" id="location" name="location" value=""></td>
                         <td class="p-2 border border-slate-300">: site web</td>
-                        <td class="p-2 border border-slate-300"><input type="text" id="restaurant_owner" name="restaurant_owner" value=""></td>
+                        <td class="p-2 border border-slate-300"><input type="text" id="restaurant_owner" name="owner_name" value=""></td>
                         <td class="p-2 border border-slate-300">&nbsp;: Proprietaire du restaurant</td>
                     </tr>
                     <tr>
-                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_phone" name="appear_phone"></td>
+                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_phone" name="phone"></td>
                         <td class="p-2 border border-slate-300">afficher num dans la facture</td>
                         <td class="p-2 border border-slate-300"><input type="email" id="email" name="email" value=""></td>
                         <td class="p-2 border border-slate-300">: Email</td>
                     </tr>
                     <tr>
-                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_email" name="appear_email"></td>
+                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_email" name="store_email"></td>
                         <td class="p-2 border border-slate-300">afficher email dans la facture ؟</td>
-                        <td class="p-2 border border-slate-300"><input type="text" inputmode="tel" id="phone" name="phone" value=""></td>
+                        <td class="p-2 border border-slate-300"><input type="text" inputmode="tel" id="phone" name="store_phone" value=""></td>
                         <td class="p-2 border border-slate-300">: Numéro de portable du restaurant</td>
                     </tr>
                     <tr>

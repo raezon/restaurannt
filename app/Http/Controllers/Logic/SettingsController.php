@@ -38,7 +38,8 @@ class SettingsController extends Controller
     {
 
         $dto = $request->all([]);
-        return $this->Repository->create($dto);
+        $this->Repository->create($dto);
+        return redirect('/dashboard');
     }
 
     /**
@@ -50,6 +51,7 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         //call view store
+
     }
 
 
