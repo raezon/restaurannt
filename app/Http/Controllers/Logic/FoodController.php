@@ -65,6 +65,7 @@ class FoodController extends Controller
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);
         $product = $factory->createProduct('food', $dto, $pictureName);
+        
         //creation food
         $this->foodRepository->create($dto, $product, $pictureName);
         //creation product stock
