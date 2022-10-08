@@ -10,6 +10,8 @@
 
         //retrieve products listing from API
         $scope.purchasedProducts = [];
+        $scope.purchasedProductsJsonArray = [];
+        $scope.count=0;
         $scope.ids = [];
         $scope.getProducts = function getProducts(name) {
 
@@ -32,10 +34,27 @@
 
         }
         $scope.display = function disp(product) {
+            console.log(product)
+            $scope.purchasedProductsJson = [];
             $scope.purchasedProducts.push(product)
+            $scope.purchasedProductsJson["product_id"] = product.id;
+            $scope.purchasedProductsJson['quantity']=1;
+            $scope.purchasedProductsJsonArray.push(
+                $scope.purchasedProductsJson
+            );
             $scope.ids.push(product.id)
+         console.log($scope.purchasedProductsJsonArray);
             document.getElementById('ids-billing').value =$scope.ids;            
         }
+        $scope.updateJsonProduct = function inc(count, product) {
+   
+            $scope.purchasedProductsJsonArray.forEach((purshased) => {
+                if (purshased["product_id"] == product.id) {
+                    purshased["quantity"] = count;
+                }
+            });
+            console.log($scope.purchasedProductsJsonArray);
+        };
         //save new record / update existing record
         $scope.save = function (modalstate, id) {
             var url = "http://127.0.0.1:8000/api/product";

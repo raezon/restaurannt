@@ -61,7 +61,9 @@ class InvoicesController extends Controller
             'details'
         ]);
 
-        return  $this->Repository->update($id, $record);
+        $this->Repository->update($id, $record);
+
+        return redirect('/invoices');
     }
 
     public function destroy(Request $request)
@@ -69,6 +71,6 @@ class InvoicesController extends Controller
         $id = $request->route('id');
         $this->Repository->delete($id);
 
-        return 'okey';
+        return redirect('/invoices');
     }
 }

@@ -3,7 +3,7 @@
         <div class="pt-4 ">
             <img class="border-4 border-indigo-600" ng-src="{{Storage :: url('<%purchasedProduct.picture%>')}}" alt="" width="80" height="80">
             @include('backend.bill.parts.increment',['name'=>"test"])
-            <span class="font-bold text-lg"> <%purchasedProduct.price%> $</span>
+            <span class="font-bold text-lg"> <%purchasedProduct.price*count%> $</span>
         </div>
     </div>
 </div>

@@ -22,6 +22,4 @@
 [] use some design pattern,event,notification on work.
 [] jit compiler.
 
-i think i will be finishing everything on 13 august
-pass to a modular aproch and transform the hole app on a rest api
-implementation .
+

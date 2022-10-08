@@ -90,8 +90,8 @@ class InventoryController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->route('id');
-        $this->Repository->delete($id);
+        $this->Repository->deleteById($id);
 
-        return 'okey';
+        return redirect('/inventory');
     }
 }
