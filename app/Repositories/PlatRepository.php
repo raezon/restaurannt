@@ -22,7 +22,7 @@ class PlatRepository implements PlatRepositoryInterface
 
   public function create(array $data, $product, $pictureName)
   {
-    $data['picture'] = $pictureName;
+    $data['image'] = $pictureName;
     return  $product->plats()->create($data);
   }
 

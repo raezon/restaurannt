@@ -4,6 +4,7 @@ app.controller("productController", function ($scope, $http) {
     $scope.purchasedProductsJsonArray = [];
     $scope.count = 0;
     $scope.ids = [];
+    /**GetProduct on tabulation filter */
     $scope.getProducts = function getProducts(name) {
         $http
             .get("http://127.0.0.1:8000/api/product/category/" + name)
@@ -12,50 +13,41 @@ app.controller("productController", function ($scope, $http) {
             });
     };
     $scope.printBill = function getProducts() {};
+
     $scope.display = function disp(product) {
-        console.log(product);
         $scope.purchasedProductsJson = [];
         $scope.purchasedProducts.push(product);
-        $scope.purchasedProductsJson["product_id"] = product.id;
-        $scope.purchasedProductsJson["quantity"] = 1;
-        $scope.purchasedProductsJsonArray.push($scope.purchasedProductsJson);
-        $scope.ids.push(product.id);
+        
+        let purshased = {
+            product_id: product.id,
+            price:product.price,
+            quantity: 1,
+        };
+
+        $scope.purchasedProductsJsonArray.push(purshased);
         console.log($scope.purchasedProductsJsonArray);
+        $scope.ids.push(product.id);
         document.getElementById("ids-billing").value = $scope.ids;
     };
     $scope.updateJsonProduct = function inc(count, product) {
         $scope.purchasedProductsJsonArray.forEach((purshased) => {
-            if (purshased["product_id"] == product.id) {
-                purshased["quantity"] = count;
+            if (purshased.product_id == product.id) {
+                purshased.quantity = count;
             }
         });
-        console.log($scope.purchasedProductsJsonArray);
     };
-    //save new record / update existing record
-    $scope.save = function (modalstate, id) {
-        var url = "http://127.0.0.1:8000/api/product";
 
-        //append employee id to the URL if the form is in edit mode
-        if (modalstate === "edit") {
-            url += "/" + id;
-        }
-
-        $http({
-            method: "POST",
-            url: url,
-            data: $.param($scope.employee),
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        })
-            .success(function (response) {
-                console.log(response);
-                location.reload();
+    //create an invoice
+    $scope.submitPostForm = function () {
+        var url = "http://127.0.0.1:8000/orders/bulkInsert";
+        // let jsonData = { ...$scope.purchasedProductsJsonArray} ;
+        let jsonData = $scope.purchasedProductsJsonArray;
+         
+        $http
+            .post(url, jsonData)
+            .success(function (data, status, headers, config) {
             })
-            .error(function (response) {
-                console.log(response);
-                alert(
-                    "This is embarassing. An error has occured. Please check the log for details"
-                );
-            });
+            .error(function (data, status, header, config) {});
     };
 
     //delete record
@@ -67,7 +59,6 @@ app.controller("productController", function ($scope, $http) {
                 url: "http://127.0.0.1:8000/api/product" + id,
             })
                 .success(function (data) {
-                    console.log(data);
                     location.reload();
                 })
                 .error(function (data) {

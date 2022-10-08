@@ -90,13 +90,11 @@ class BillController extends Controller
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->options, true);
         $ids=$_POST['ids'];
+        $productPurshased=$_POST['product-purchased'];
+        dd($productPurshased);
         $productsIds = explode(',', $ids);
-
-        //getStocks
         $products = $this->productRepository->getStocks($productsIds);
-        //update stock
         $this->stockService->updateStock($products,$this->inventoryRepository);
-        //create invoice
         // i will use here a foreach than i will think on optimizing it 
       
         $this->orderService->createOrder($this->orderRepository,$productsIds,1);

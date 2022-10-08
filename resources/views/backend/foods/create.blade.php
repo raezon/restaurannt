@@ -23,10 +23,6 @@
                         <input class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="text" name="name" placeholder="180" />
                     </div>
 
-                    <div>
-                        <x-ingrediants :ingrediants="$data[0]"></x-ingrediants>
-                    </div>
-
                     <!-- Description -->
                     <div class="mt-4">
                         <label class="block text-sm font-bold text-gray-700" for="password">

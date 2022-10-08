@@ -8,5 +8,6 @@ interface OrderRepositoryInterface
     public function getById($orderId);
     public function delete($orderId);
     public function create(array $order) ;
+    public function bulkInsert($dto);
     public function update($orderId, array $order);
 }

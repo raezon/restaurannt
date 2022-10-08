@@ -13,6 +13,10 @@ class OrderRepository implements OrderRepositoryInterface
         return Order::create($order);
     }
 
+    public function bulkInsert($dto){
+         return Order::insert($dto);
+    }
+
     public function getAll()
     {
         return Order::all();

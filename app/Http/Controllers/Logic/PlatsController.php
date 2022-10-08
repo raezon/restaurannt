@@ -67,7 +67,7 @@ class PlatsController extends Controller
     public function store(ProductRequest $request, ProductFactoryAction $productFactoryAction, UploadAction $action)
     {
         $dto = $request->all([]);
-       
+
         $pictureName = Storage::disk('public')->put('products', $request->photo);
         //creation product
         $factory = new productFactoryAction($this->productRepository, $this->foodRepository, $this->platRepository, $this->productPackRepository);

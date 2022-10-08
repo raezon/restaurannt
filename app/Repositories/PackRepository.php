@@ -23,8 +23,8 @@ class PackRepository implements PackRepositoryInterface
   public function create(array $data, $product, $pictureName)
   {
 
-    $data['picture'] = $pictureName;
-    return  $product->plats()->create($data);
+    $data['photo'] = $pictureName;
+    return Pack::create($data);
   }
 
   public function update($id, array $data)

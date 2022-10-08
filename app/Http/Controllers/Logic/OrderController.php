@@ -48,7 +48,10 @@ class OrderController extends Controller
     {
         //call view store
     }
-
+    public function bulkInsert(Request $request){
+        $dto = $request->all([]);
+        return $this->Repository->create($dto);
+    }
 
     /**
      * Display the specified resource.

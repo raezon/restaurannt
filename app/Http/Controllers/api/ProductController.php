@@ -75,8 +75,7 @@ class ProductController extends Controller
     public function showCategory($name)
     {
         $data = $this->Repository->getByCategory($name);
-    //    $groups = File::find(i)->groups()->lists('name');
-
+   
         return response()->json([
             'data' => $data
         ]);

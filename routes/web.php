@@ -55,6 +55,9 @@ Route::post('/categories/store', [CategoryController::class, 'store'])
     ->name('CategoriesStore');
 Route::post('/settings/create', [SettingsController::class, 'create'])
 ->name('SettingsStore');
+Route::post('/orders/bulkInsert', [OrderController::class, 'bulkInsert'])
+->name('OrdersStore');
+
 
 //entities controller
 Route::middleware('isAdmin')->group(function () {
