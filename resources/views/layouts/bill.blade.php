@@ -18,6 +18,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="{{ asset('js/angular/app.js') }}" defer></script>
+    <script src="{{ asset('js/angular/controller/productController.js') }}" defer></script>
 
 </head>
 
