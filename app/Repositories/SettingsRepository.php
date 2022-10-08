@@ -15,11 +15,13 @@ class SettingsRepository implements SettingsRepositoryInterface
         return Settings::find(1);
     }
   
-    public function create(array $data)
+    public function create(array $data,$pictureName)
     {
+        //need to be put on service later
         $option=[];
-        $option['width']=$data['logo_width'];
-        $option['height']= $data['logo_height'];
+        $option['image'][]['image'] = $pictureName;
+        $option['image'][]['width']=$data['logo_width'];
+        $option['image'][]['height']= $data['logo_height'];
         $data['options']=json_encode($option,true);
         
         return Settings::create($data);

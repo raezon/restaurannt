@@ -9,6 +9,7 @@ use App\Interfaces\Repositories\SettingsRepositoryInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -38,7 +39,8 @@ class SettingsController extends Controller
     {
 
         $dto = $request->all([]);
-        $this->Repository->create($dto);
+        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        $this->Repository->create($dto,$pictureName);
         return redirect('/dashboard');
     }
 

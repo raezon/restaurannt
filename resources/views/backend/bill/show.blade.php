@@ -5,7 +5,7 @@
     <div class="col text-center"><button id="printPageButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" style="margin: 10px;padding-right: 15px;padding-left: 15px;font-family: Changa, sans-serif;" onClick="window.print();">Print Bill</button></div>
 
     <div class="flex justify-center">
-        <img style="margin: 5px;border-color: blue;" src="{{'/uploads/test/'.$data['image']['0']['image']}}" class="" height="{{$data['image']['2']['height']}}" width="{{$data['image']['1']['width']}}" />
+        <img style="margin: 5px;border-color: blue;" src="{{Storage :: url($data['image']['image']['0']['image'])}}" class="" height="{{$data['image']['image']['2']['height']}}" width="{{$data['image']['image']['1']['width']}}" />
     </div>
 
     <div class="col text-center"><label class="col-form-label" style="font-family: Changa, sans-serif;font-size: 22px;">الموقع مكة المكرمة</label></div>

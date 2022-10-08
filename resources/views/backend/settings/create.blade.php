@@ -17,7 +17,7 @@
                 <tbody style="background-color: #fff4e3;">
                     <tr>
                         <td class="p-2 border border-slate-300" style="width: 20%;">
-                            <input type="file" name="logo" id="logo">
+                            <input type="file" name="photo" id="logo">
                         <td class="p-2 border border-slate-300" style="width: 20%;">:Affichage du logo</td>
                         <td class="p-2 border border-slate-300" style="width: 20%;"><input type="text" id="restaurant_name" name="name" value=""></td>
                         <td class="p-2 border border-slate-300" style="width: 20%;">&nbsp;: Nom du restaurant</td>
@@ -29,7 +29,7 @@
                         <td class="p-2 border border-slate-300">&nbsp;: Proprietaire du restaurant</td>
                     </tr>
                     <tr>
-                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_phone" name="phone"></td>
+                        <td class="p-2 border border-slate-300"><input type="checkbox" id="appear_phone" name="phone" value="0798457017"></td>
                         <td class="p-2 border border-slate-300">afficher num dans la facture</td>
                         <td class="p-2 border border-slate-300"><input type="email" id="email" name="email" value=""></td>
                         <td class="p-2 border border-slate-300">: Email</td>
