@@ -1,9 +1,36 @@
 app.controller("productController", function ($scope, $http) {
-    //retrieve products listing from API
+    //state
     $scope.purchasedProducts = [];
     $scope.purchasedProductsJsonArray = [];
     $scope.count = 0;
     $scope.ids = [];
+    $scope.totalPrice=0
+
+    //function needed
+    function createOrder(totalPrice) {
+        console.log(totalPrice)
+        var url = "http://127.0.0.1:8000/orders/store";
+        $http
+            .post(url, { total: totalPrice })
+            .success(function (data, status, headers, config) {
+                console.log(data);
+            })
+            .error(function (data, status, header, config) {});
+    }
+    function createOrderItem(jsonData) {
+        var url = "http://127.0.0.1:8000/order-items/bulkInsert";
+        $http
+            .post(url, jsonData)
+            .success(function (data, status, headers, config) {})
+            .error(function (data, status, header, config) {});
+    }
+    function calculateTotalPrice() {
+       
+        $scope.purchasedProductsJsonArray.forEach((purshased) => {
+            $scope.totalPrice += purshased.price * purshased.quantity;
+        });
+        return $scope.totalPrice;
+    }
     /**GetProduct on tabulation filter */
     $scope.getProducts = function getProducts(name) {
         $http
@@ -17,17 +44,13 @@ app.controller("productController", function ($scope, $http) {
     $scope.display = function disp(product) {
         $scope.purchasedProductsJson = [];
         $scope.purchasedProducts.push(product);
-        
         let purshased = {
             product_id: product.id,
-            price:product.price,
+            price: product.price,
             quantity: 1,
         };
 
         $scope.purchasedProductsJsonArray.push(purshased);
-        console.log($scope.purchasedProductsJsonArray);
-        $scope.ids.push(product.id);
-        document.getElementById("ids-billing").value = $scope.ids;
     };
     $scope.updateJsonProduct = function inc(count, product) {
         $scope.purchasedProductsJsonArray.forEach((purshased) => {
@@ -39,15 +62,10 @@ app.controller("productController", function ($scope, $http) {
 
     //create an invoice
     $scope.submitPostForm = function () {
-        var url = "http://127.0.0.1:8000/orders/bulkInsert";
-        // let jsonData = { ...$scope.purchasedProductsJsonArray} ;
+        let totalPrice = calculateTotalPrice();
         let jsonData = $scope.purchasedProductsJsonArray;
-         
-        $http
-            .post(url, jsonData)
-            .success(function (data, status, headers, config) {
-            })
-            .error(function (data, status, header, config) {});
+        console.log(totalPrice);
+        createOrder(totalPrice);
     };
 
     //delete record

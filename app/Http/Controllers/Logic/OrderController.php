@@ -26,17 +26,7 @@ class OrderController extends Controller
         return $this->Repository->getAll();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
 
-        $dto = $request->all([]);
-        return $this->Repository->create($dto);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,7 +36,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //call view store
+        $dto = $request->all([]);
+        return $this->Repository->create($dto);
     }
     public function bulkInsert(Request $request){
         $dto = $request->all([]);
