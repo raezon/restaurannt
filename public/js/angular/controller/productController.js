@@ -26,7 +26,7 @@ app.controller("productController", function ($scope, $http) {
         console.log(orderItem);
         var url = "http://127.0.0.1:8000/order-item/bulk-insert";
         $http
-            .post(url, orderItem)
+            .post(url, { orderId: orderId, orderItem: orderItem })
             .success(function (data, status, headers, config) {})
             .error(function (data, status, header, config) {});
     };
@@ -73,7 +73,7 @@ app.controller("productController", function ($scope, $http) {
             const orderId = response.data.id;
             $scope.createOrderItem(jsonData, orderId);
             console.log(response.data.id);
-            window.location ="http://127.0.0.1:8000/bill/view/" + orderId;
+          //  window.location ="http://127.0.0.1:8000/bill/view/" + orderId;
         });
     };
 

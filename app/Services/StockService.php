@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
  */
 class StockService
 {
-    public function updateStock($products,$inventoryRepository)
+    public function updateStock($orderItems,$inventoryRepository)
     {
-        foreach ($products as $product) {
-
-            $result = $product->stocks[0]->quantity - $product->stocks[0]->pivot->qunatity;
-            $inventoryRepository->update($product->stocks[0]->id, ['quantity' => $result]);
+        foreach ($orderItems as $orderItem) {
+         
+            $result = $orderItem->product->stocks[0]->quantity -($orderItem->product->stocks[0]->pivot->quantity*$orderItem->qunatity) ;
+        
+            $inventoryRepository->update($orderItem->product->stocks[0]->id, ['quantity' => $result]);
         }
     }
     public function attachPivotTable(Request $request, $product)

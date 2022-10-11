@@ -22,6 +22,9 @@ class OrderItemRepository implements OrderItemRepositoryInterface
     {
         return OrderItem::all();
     }
+    public function getAllEn($id){
+        return OrderItem::all()->where('order_id', $id);
+    }
 
     public function getById($orderId)
     {

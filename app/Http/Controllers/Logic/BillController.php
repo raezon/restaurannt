@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Mail;
 //needs here to be polymophic
 class BillController extends Controller
 {
-    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, StockService $stockService, InventoryRepository $inventoryRepository,OrderRepositoryInterface $orderRepository,OrderService $orderService, PresenterDispatcher $presenter)
+    public function __construct(FoodRepositoryInterface $foodRepository, PlatRepositoryInterface $platRepository, ProductPackRepositoryInterface $packProduct, CategoryRepositoryInterface $categoryRepository, SettingsRepositoryInterface $settingsRepository, ProductRepositoryInterface $productRepository, StockService $stockService, InventoryRepository $inventoryRepository, OrderRepositoryInterface $orderRepository, OrderService $orderService, PresenterDispatcher $presenter)
     {
         $this->foodRepository = $foodRepository;
         $this->platRepository = $platRepository;
@@ -37,8 +37,8 @@ class BillController extends Controller
         $this->settingsRepository = $settingsRepository;
         $this->productRepository = $productRepository;
         $this->stockService = $stockService;
-        $this->orderRepository=$orderRepository;
-        $this->orderService=$orderService;
+        $this->orderRepository = $orderRepository;
+        $this->orderService = $orderService;
         $this->presenter = $presenter;
     }
 
@@ -84,25 +84,23 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
-
-        //assets
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->options, true);
-        $order=$this->orderRepository->getById($id);
-        $orderItems=$order->orderItems($id);
+        $order = $this->orderRepository->getById($id);
+        $orderItems = $order->orderItems($id);
 
-
-
-       //extracted on endpoint
-     /*   $productsIds = explode(',', $ids);
-        $products = $this->productRepository->getStocks($productsIds);
-        $this->stockService->updateStock($products,$this->inventoryRepository);*/
-        // i will use here a foreach than i will think on optimizing it 
-        //WE NEED TO GET order Item products
-        // orderItems[]=>orderItem
-
-        return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'orderItems' => $orderItems]]);
+        return $this->presenter->handle(
+            [
+                'name' => 'backend.bill.show',
+                'data' =>
+                [
+                    'settings' => $settings,
+                    'image' => $image,
+                    'orderItems' => $orderItems
+                ]
+            ]
+        );
     }
 }
