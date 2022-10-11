@@ -10,6 +10,7 @@ use App\Interfaces\Repositories\FoodRepositoryInterface;
 use App\Interfaces\Repositories\IngrediantRepositoryInterface;
 use App\Interfaces\Repositories\InventoryRepositoryInterface;
 use App\Interfaces\Repositories\InvoicesRepositoryInterface;
+use App\Interfaces\Repositories\OrderItemRepositoryInterface;
 use App\Interfaces\Repositories\OrderRepositoryInterface;
 use App\Interfaces\Repositories\PackRepositoryInterface;
 use App\Interfaces\Repositories\PlatRepositoryInterface;
@@ -28,6 +29,7 @@ use App\Repositories\FoodRepository;
 use App\Repositories\IngrediantRepository;
 use App\Repositories\InventoryRepository;
 use App\Repositories\InvoicesRepository;
+use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PackRepository;
 use App\Repositories\PlatRepository;
@@ -59,6 +61,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->registerPlat();
         $this->registerPack();
         $this->registerOrders();
+        $this->registerOrderItem();
         $this->registerReports();
         $this->registerRooms();
         $this->registerTransaction();
@@ -111,6 +114,10 @@ class RepositoryServiceProvider extends ServiceProvider
     public function registerOrders()
     {
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+    }
+    public function registerOrderItem()
+    {
+        $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
     }
     public function registerRooms()
     {

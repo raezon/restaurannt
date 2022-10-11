@@ -11,6 +11,7 @@ use App\Http\Controllers\Logic\PlatsController;
 use App\Http\Controllers\Logic\InventoryController;
 use App\Http\Controllers\Logic\InvoicesController;
 use App\Http\Controllers\Logic\OrderController;
+use App\Http\Controllers\Logic\OrderItemController;
 use App\Http\Controllers\Logic\PackController;
 use App\Http\Controllers\Logic\ReportsController;
 use App\Http\Controllers\Logic\RoomsController;
@@ -37,7 +38,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 //post
-Route::post('/bill/view', [BillController::class, 'show'])
+Route::get('/bill/view/{id}', [BillController::class, 'show'])
     ->name('billView');
 Route::post('/foods/store', [FoodController::class, 'store'])
     ->name('FoodStore');
@@ -57,6 +58,8 @@ Route::post('/settings/create', [SettingsController::class, 'create'])
 ->name('SettingsStore');
 Route::post('/orders/store', [OrderController::class, 'store'])
 ->name('OrdersStore');
+Route::post('/order-item/bulk-insert', [OrderItemController::class, 'bulkInsert'])
+->name('OrdersITemStore');
 
 
 //entities controller
@@ -78,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('invoices', InvoicesController::class);
     Route::resource('ingrediants', IngrediantController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('orderItems', OrderItemController::class);
     Route::resource('plats', PlatsController::class);
     Route::resource('packs', PackController::class);
     Route::resource('reports', ReportsController::class);

@@ -16,6 +16,7 @@ class DashboardController extends Controller
      */
     public function index(StorePanelAction $action)
     {
+        
         $elements = $action->getPanels();
       
        // return response()->json(['name' => 'this is a dashboard']);

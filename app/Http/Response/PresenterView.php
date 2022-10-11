@@ -9,8 +9,6 @@ class PresenterView  implements Presenter
 {
     public function display($options)
     {
-
-       
         return view($options['name'], [
             'data' => $options['data']
         ]);

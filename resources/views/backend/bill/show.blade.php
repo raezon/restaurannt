@@ -19,7 +19,7 @@
     <div id="image_data"></div>
     <div class="col text-center"><label class="col-form-label" style="font-family: Changa, sans-serif;font-size: 22px;">شكرا لزيارتكم<br>Thank you for your visit<br></label></div>
     <div class="container mx-auto">
-        @include('backend.bill.print-part.index',['products'=>$data['products']])
+        @include('backend.bill.print-part.index',['orderItems'=>$data['orderItems']])
     </div>
 
 </div>

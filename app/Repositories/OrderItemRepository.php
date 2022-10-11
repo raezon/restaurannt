@@ -2,29 +2,30 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\Repositories\OrderRepositoryInterface;
+use App\Interfaces\Repositories\OrderItemRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Models\Order;
+use App\Models\OrderItem;
 
-class OrderRepository implements OrderRepositoryInterface
+class OrderItemRepository implements OrderItemRepositoryInterface
 {
     public function create(array $order)
     {
-        return Order::create($order);
+        return OrderItem::create($order);
     }
 
-    public function bulkInsert($dto){
-         return Order::insert($dto);
+    public function bulkInsert($dto)
+    {
+        return OrderItem::insert($dto);
     }
 
     public function getAll()
     {
-        return Order::all();
+        return OrderItem::all();
     }
 
     public function getById($orderId)
     {
-        $order = Order::find($orderId);
+        $order = OrderItem::find($orderId);
         return $order;
     }
 

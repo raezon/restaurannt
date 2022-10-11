@@ -18,19 +18,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $product)
+            @foreach ($orderItems as $orderItem)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                    {{$product->name}}
+                    {{$orderItem->product->name}}
                 </th>
                 <td class="px-6 py-4">
-                    {{$product->description}}
+                    {{$orderItem->product->description}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$product->category }}
+                    {{$orderItem->product->category }}
                 </td>
                 <td class="px-6 py-4">
-                    {{$product->price}}
+                    {{$orderItem->product->price}}
                 </td>
 
             </tr>

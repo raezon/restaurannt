@@ -84,21 +84,25 @@ class BillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Request $request,$id)
     {
+
         //assets
         $settings = $this->settingsRepository->getOne();
         $image = json_decode($settings->options, true);
-        $ids=$_POST['ids'];
-        $productPurshased=$_POST['product-purchased'];
-        dd($productPurshased);
-        $productsIds = explode(',', $ids);
-        $products = $this->productRepository->getStocks($productsIds);
-        $this->stockService->updateStock($products,$this->inventoryRepository);
-        // i will use here a foreach than i will think on optimizing it 
-      
-        $this->orderService->createOrder($this->orderRepository,$productsIds,1);
+        $order=$this->orderRepository->getById($id);
+        $orderItems=$order->orderItems($id);
 
-        return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'products' => $products]]);
+
+
+       //extracted on endpoint
+     /*   $productsIds = explode(',', $ids);
+        $products = $this->productRepository->getStocks($productsIds);
+        $this->stockService->updateStock($products,$this->inventoryRepository);*/
+        // i will use here a foreach than i will think on optimizing it 
+        //WE NEED TO GET order Item products
+        // orderItems[]=>orderItem
+
+        return $this->presenter->handle(['name' => 'backend.bill.show', 'data' => ['settings' => $settings, 'image' => $image, 'orderItems' => $orderItems]]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderItem;
 
 /**
  * @property integer $id
@@ -45,8 +46,10 @@ class Order extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orderItems()
+    public function orderItems($id)
     {
-        return $this->hasMany('App\OrderItem');
+        $result= OrderItem::all()->where('order_id', $id);
+        return $result;
+       // return $this->hasMany('App\Models\OrderItem');
     }
 }
